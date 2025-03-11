@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Templates - AI Policy Generator</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="antialiased bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex">
+                    <div class="flex-shrink-0 flex items-center">
+                        <div class="flex flex-col items-start">
+                            <span class="text-xl font-bold gradient-text">WhitegloveAI</span>
+                            <span class="text-sm font-light text-gray-700">Policy Generator</span>
+                        </div>
+                    </div>
+                    <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
+                        <a href="index.html" id="nav-home" class="border-transparent text-gray-700 hover:text-indigo-600 hover:border-indigo-500 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                            Home
+                        </a>
+                        <a href="templates.html" id="nav-templates" class="border-indigo-500 text-indigo-600 border-b-2 inline-flex items-center px-1 pt-1 text-sm font-medium">
+                            Templates
+                        </a>
+                        <a href="framework.html" id="nav-framework" class="border-transparent text-gray-700 hover:text-indigo-600 hover:border-indigo-500 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                            Framework
+                        </a>
+                        <a href="pricing.html" id="nav-pricing" class="border-transparent text-gray-700 hover:text-indigo-600 hover:border-indigo-500 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                            Pricing
+                        </a>
+                    </div>
+                </div>
+                <div class="hidden sm:ml-6 sm:flex sm:items-center">
+                    <a href="#" class="px-4 py-2 text-sm font-medium text-gray-700 hover:text-indigo-600" onclick="toggleDarkMode()">
+                        <i class="fas fa-moon"></i>
+                    </a>
+                    <a href="pricing.html" class="ml-3 px-4 py-2 text-sm font-medium rounded-md text-white gradient-bg hover:opacity-90">
+                        Get Started
+                    </a>
+                </div>
+                <div class="-mr-2 flex items-center sm:hidden">
+                    <button type="button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500" onclick="toggleMobileMenu()">
+                        <span class="sr-only">Open main menu</span>
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile menu, show/hide based on menu state -->
+        <div class="sm:hidden hidden" id="mobile-menu">
+            <div class="pt-2 pb-3 space-y-1">
+                <a href="index.html" class="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">Home</a>
+                <a href="templates.html" class="bg-indigo-50 border-indigo-500 text-indigo-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">Templates</a>
+                <a href="framework.html" class="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">Framework</a>
+                <a href="pricing.html" class="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">Pricing</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Templates Section -->
+        <div class="bg-white shadow overflow-hidden sm:rounded-lg mb-8">
+            <div class="px-4 py-5 sm:px-6">
+                <h3 class="text-lg leading-6 font-medium text-gray-900">AI Policy Templates</h3>
+                <p class="mt-1 max-w-2xl text-sm text-gray-500">Browse our comprehensive collection of AI policy templates.</p>
+            </div>
+            <div class="border-t border-gray-200">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-6">
+                    <!-- Core AI Governance Policies -->
+                    <div class="bg-white overflow-hidden shadow rounded-lg policy-card transition-all duration-300">
+                        <div class="px-4 py-5 sm:p-6">
+                            <div class="flex items-center">
+                                <div class="flex-shrink-0 bg-indigo-500 rounded-md p-3">
+                                    <i class="fas fa-balance-scale text-white"></i>
+                                </div>
+                                <div class="ml-5 w-0 flex-1">
+                                    <h3 class="text-lg font-medium text-gray-900">AI Ethics Policy</h3>
+                                    <p class="mt-1 text-sm text-gray-500">
+                                        Establish ethical principles and guidelines for responsible AI development and use.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="mt-4">
+                                <a href="#" class="text-sm font-medium text-indigo-600 hover:text-indigo-500" onclick="showTemplateModal('AI Ethics Policy')">
+                                    View template <span aria-hidden="true">&rarr;</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white overflow-hidden shadow rounded-lg policy-card transition-all duration-300">
+                        <div class="px-4 py-5 sm:p-6">
+                            <div class="flex items-center">
+                                <div class="flex-shrink-0 bg-indigo-500 rounded-md p-3">
+                                    <i class="fas fa-shield-alt text-white"></i>
+                                </div>
+                                <div class="ml-5 w-0 flex-1">
+                                    <h3 class="text-lg font-medium text-gray-900">AI Risk Management Policy</h3>
+                                    <p class="mt-1 text-sm text-gray-500">
+                                        Framework for identifying, assessing, and mitigating AI-related risks.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="mt-4">
+                                <a href="#" class="text-sm font-medium text-indigo-600 hover:text-indigo-500" onclick="showTemplateModal('AI Risk Management Policy')">
+                                    View template <span aria-hidden="true">&rarr;</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white overflow-hidden shadow rounded-lg policy-card transition-all duration-300">
+                        <div class="px-4 py-5 sm:p-6">
+                            <div class="flex items-center">
+                                <div class="flex-shrink-0 bg-indigo-500 rounded-md p-3">
+                                    <i class="fas fa-database text-white"></i>
+                                </div>
+                                <div class="ml-5 w-0 flex-1">
+                                    <h3 class="text-lg font-medium text-gray-900">AI Data Governance Policy</h3>
+                                    <p class="mt-1 text-sm text-gray-500">
+                                        Establish standards for data collection, quality, and usage in AI systems.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="mt-4">
+                                <a href="#" class="text-sm font-medium text-indigo-600 hover:text-indigo-500" onclick="showTemplateModal('AI Data Governance Policy')">
+                                    View template <span aria-hidden="true">&rarr;</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white overflow-hidden shadow rounded-lg policy-card transition-all duration-300">
+                        <div class="px-4 py-5 sm:p-6">
+                            <div class="flex items-center">
+                                <div class="flex-shrink-0 bg-indigo-500 rounded-md p-3">
+                                    <i class="fas fa-lock text-white"></i>
+                                </div>
+                                <div class="ml-5 w-0 flex-1">
+                                    <h3 class="text-lg font-medium text-gray-900">AI Security Policy</h3>
+                                    <p class="mt-1 text-sm text-gray-500">
+                                        Protect AI systems from security threats and vulnerabilities.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="mt-4">
+                                <a href="#" class="text-sm font-medium text-indigo-600 hover:text-indigo-500" onclick="showTemplateModal('AI Security Policy')">
+                                    View template <span aria-hidden="true">&rarr;</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white overflow-hidden shadow rounded-lg policy-card transition-all duration-300">
+                        <div class="px-4 py-5 sm:p-6">
+                            <div class="flex items-center">
+                                <div class="flex-shrink-0 bg-indigo-500 rounded-md p-3">
+                                    <i class="fas fa-cogs text-white"></i>
+                                </div>
+                                <div class="ml-5 w-0 flex-1">
+                                    <h3 class="text-lg font-medium text-gray-900">AI Model Management Policy</h3>
+                                    <p class="mt-1 text-sm text-gray-500">
+                                        Manage AI models throughout their lifecycle from development to retirement.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="mt-4">
+                                <a href="#" class="text-sm font-medium text-indigo-600 hover:text-indigo-500" onclick="showTemplateModal('AI Model Management Policy')">
+                                    View template <span aria-hidden="true">&rarr;</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white overflow-hidden shadow rounded-lg policy-card transition-all duration-300">
+                        <div class="px-4 py-5 sm:p-6">
+                            <div class="flex items-center">
+                                <div class="flex-shrink-0 bg-indigo-500 rounded-md p-3">
+                                    <i class="fas fa-users text-white"></i>
+                                </div>
+                                <div class="ml-5 w-0 flex-1">
+                                    <h3 class="text-lg font-medium text-gray-900">Human-AI Collaboration Policy</h3>
+                                    <p class="mt-1 text-sm text-gray-500">
+                                        Establish frameworks for effective human-AI interaction and oversight.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="mt-4">
+                                <a href="#" class="text-sm font-medium text-indigo-600 hover:text-indigo-500" onclick="showTemplateModal('Human-AI Collaboration Policy')">
+                                    View template <span aria-hidden="true">&rarr;</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Package Section -->
+        <div class="bg-white shadow overflow-hidden sm:rounded-lg">
+            <div class="px-4 py-5 sm:px-6">
+                <h3 class="text-lg leading-6 font-medium text-gray-900">Policy Packages</h3>
+                <p class="mt-1 max-w-2xl text-sm text-gray-500">Our templates are organized into packages aligned with your organization's AI governance maturity.</p>
+            </div>
+            <div class="border-t border-gray-200">
+                <div class="py-5 px-6">
+                    <!-- Package cards in a visually appealing grid -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                        <!-- Basic Package -->
+                        <div class="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-lg p-6 shadow-sm border border-blue-100 hover:shadow-md transition-all duration-300">
+                            <div class="flex items-center mb-4">
+                                <div class="p-2 rounded-full bg-blue-100 mr-3">
+                                    <i class="fas fa-certificate text-blue-600 text-xl"></i>
+                                </div>
+                                <h4 class="text-lg font-medium text-gray-900">Basic Package</h4>
+                            </div>
+                            <p class="text-sm text-gray-600 mb-4">Fundamental policies for organizations starting with AI governance.</p>
+                            <div class="space-y-2">
+                                <div class="flex items-center">
+                                    <i class="fas fa-check-circle text-blue-500 mr-2"></i>
+                                    <a href="#" class="text-sm text-blue-700 hover:text-blue-900 hover:underline" onclick="showTemplateModal('AI Ethics Policy')">AI Ethics Policy</a>
+                                </div>
+                                <div class="flex items-center">
+                                    <i class="fas fa-check-circle text-blue-500 mr-2"></i>
+                                    <a href="#" class="text-sm text-blue-700 hover:text-blue-900 hover:underline" onclick="showTemplateModal('AI Risk Management Policy')">AI Risk Management Policy</a>
+                                </div>
+                                <div class="flex items-center">
+                                    <i class="fas fa-check-circle text-blue-500 mr-2"></i>
+                                    <a href="#" class="text-sm text-blue-700 hover:text-blue-900 hover:underline" onclick="showTemplateModal('AI Data Governance Policy')">AI Data Governance Policy</a>
+                                </div>
+                            </div>
+                            <div class="mt-4 pt-4 border-t border-blue-100">
+                                <a href="pricing.html" class="text-sm font-medium text-blue-700 hover:text-blue-900 hover:underline inline-flex items-center">
+                                    View Basic Package details <i class="fas fa-arrow-right ml-1"></i>
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <!-- Professional Package -->
+                        <div class="bg-gradient-to-br from-purple-50 to-indigo-50 rounded-lg p-6 shadow-sm border border-purple-100 hover:shadow-md transition-all duration-300">
+                            <div class="relative">
+                                <div class="absolute -top-6 left-0 right-0 flex justify-center">
+                                    <span class="bg-indigo-600 text-white text-xs px-2 py-1 rounded-full uppercase font-semibold tracking-wide">Popular Choice</span>
+                                </div>
+                                <div class="flex items-center mb-4">
+                                    <div class="p-2 rounded-full bg-purple-100 mr-3">
+                                        <i class="fas fa-award text-purple-600 text-xl"></i>
+                                    </div>
+                                    <h4 class="text-lg font-medium text-gray-900">Professional Package</h4>
+                                </div>
+                            </div>
+                            <p class="text-sm text-gray-600 mb-4">For organizations scaling their AI operations with structured processes.</p>
+                            <div class="space-y-2">
+                                <div class="flex items-center">
+                                    <i class="fas fa-check-circle text-purple-500 mr-2"></i>
+                                    <span class="text-sm text-gray-700">All 3 Basic policies, plus:</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <i class="fas fa-check-circle text-purple-500 mr-2"></i>
+                                    <a href="#" class="text-sm text-purple-700 hover:text-purple-900 hover:underline" onclick="showTemplateModal('AI Security Policy')">AI Security Policy</a>
+                                </div>
+                                <div class="flex items-center">
+                                    <i class="fas fa-check-circle text-purple-500 mr-2"></i>
+                                    <a href="#" class="text-sm text-purple-700 hover:text-purple-900 hover:underline" onclick="showTemplateModal('AI Model Management Policy')">AI Model Management Policy</a>
+                                </div>
+                                <div class="flex items-center">
+                                    <i class="fas fa-check-circle text-purple-500 mr-2"></i>
+                                    <a href="#" class="text-sm text-purple-700 hover:text-purple-900 hover:underline" onclick="showTemplateModal('Human Oversight Policy')">Human Oversight Policy</a>
+                                </div>
+                                <div class="flex items-center">
+                                    <i class="fas fa-check-circle text-purple-500 mr-2"></i>
+                                    <a href="#" class="text-sm text-purple-700 hover:text-purple-900 hover:underline" onclick="showTemplateModal('AI Compliance Policy')">AI Compliance Policy</a>
+                                </div>
+                                <div class="flex items-center">
+                                    <i class="fas fa-check-circle text-purple-500 mr-2"></i>
+                                    <a href="#" class="text-sm text-purple-700 hover:text-purple-900 hover:underline" onclick="showTemplateModal('AI Use Case Evaluation Policy')">AI Use Case Evaluation Policy</a>
+                                </div>
+                            </div>
+                            <div class="mt-4 pt-4 border-t border-purple-100">
+                                <a href="pricing.html" class="text-sm font-medium text-purple-700 hover:text-purple-900 hover:underline inline-flex items-center">
+                                    View Professional Package details <i class="fas fa-arrow-right ml-1"></i>
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <!-- Premium Package -->
+                        <div class="bg-gradient-to-br from-amber-50 to-orange-50 rounded-lg p-6 shadow-sm border border-amber-100 hover:shadow-md transition-all duration-300">
+                            <div class="flex items-center mb-4">
+                                <div class="p-2 rounded-full bg-amber-100 mr-3">
+                                    <i class="fas fa-crown text-amber-600 text-xl"></i>
+                                </div>
+                                <h4 class="text-lg font-medium text-gray-900">Premium Package</h4>
+                            </div>
+                            <p class="text-sm text-gray-600 mb-4">Complete suite for organizations with mature AI governance frameworks.</p>
+                            <div class="space-y-2">
+                                <div class="flex items-center">
+                                    <i class="fas fa-check-circle text-amber-500 mr-2"></i>
+                                    <span class="text-sm text-gray-700">All 8 Professional policies, plus:</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <i class="fas fa-plus text-amber-500 mr-2"></i>
+                                    <a href="#" class="text-sm text-amber-700 hover:text-amber-900 hover:underline" onclick="showTemplateModal('AI Procurement and Vendor Management Policy')">AI Procurement and Vendor Management</a>
+                                </div>
+                                <div class="flex items-center">
+                                    <i class="fas fa-plus text-amber-500 mr-2"></i>
+                                    <a href="#" class="text-sm text-amber-700 hover:text-amber-900 hover:underline" onclick="showTemplateModal('Responsible AI Deployment Policy')">Responsible AI Deployment</a>
+                                </div>
+                                <div class="flex items-center">
+                                    <i class="fas fa-plus text-amber-500 mr-2"></i>
+                                    <a href="#" class="text-sm text-amber-700 hover:text-amber-900 hover:underline" onclick="showTemplateModal('AI Training and Capability Development Policy')">AI Training and Capability Development</a>
+                                </div>
+                                <div class="flex items-center">
+                                    <i class="fas fa-plus text-amber-500 mr-2"></i>
+                                    <span class="text-sm text-gray-700">+ 7 more specialized policies</span>
+                                </div>
+                            </div>
+                            <div class="mt-4 pt-4 border-t border-amber-100">
+                                <a href="pricing.html" class="text-sm font-medium text-amber-700 hover:text-amber-900 hover:underline inline-flex items-center">
+                                    View Premium Package details <i class="fas fa-arrow-right ml-1"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Full Policy List Expandable Section -->
+                    <div class="mt-6 bg-gray-50 rounded-lg p-4">
+                        <div class="flex items-center justify-between cursor-pointer" onclick="togglePolicyList()">
+                            <h4 class="text-base font-medium text-gray-900">Complete Policy List (All 19 Policies)</h4>
+                            <i class="fas fa-chevron-down text-gray-500" id="policy-list-chevron"></i>
+                        </div>
+                        <div class="hidden mt-4" id="full-policy-list">
+                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                                <!-- Core Policies -->
+                                <div>
+                                    <h5 class="text-sm font-semibold text-indigo-700 mb-2">Core Governance Policies</h5>
+                                    <ul class="space-y-1">
+                                        <li class="flex items-center">
+                                            <span class="inline-block w-2 h-2 rounded-full bg-blue-500 mr-2"></span>
+                                            <a href="#" class="text-sm text-gray-700 hover:text-indigo-700 hover:underline" onclick="showTemplateModal('AI Ethics Policy')">AI Ethics Policy</a>
+                                        </li>
+                                        <li class="flex items-center">
+                                            <span class="inline-block w-2 h-2 rounded-full bg-blue-500 mr-2"></span>
+                                            <a href="#" class="text-sm text-gray-700 hover:text-indigo-700 hover:underline" onclick="showTemplateModal('AI Risk Management Policy')">AI Risk Management Policy</a>
+                                        </li>
+                                        <li class="flex items-center">
+                                            <span class="inline-block w-2 h-2 rounded-full bg-blue-500 mr-2"></span>
+                                            <a href="#" class="text-sm text-gray-700 hover:text-indigo-700 hover:underline" onclick="showTemplateModal('AI Data Governance Policy')">AI Data Governance Policy</a>
+                                        </li>
+                                        <li class="flex items-center">
+                                            <span class="inline-block w-2 h-2 rounded-full bg-purple-500 mr-2"></span>
+                                            <a href="#" class="text-sm text-gray-700 hover:text-indigo-700 hover:underline" onclick="showTemplateModal('AI Security Policy')">AI Security Policy</a>
+                                        </li>
+                                        <li class="flex items-center">
+                                            <span class="inline-block w-2 h-2 rounded-full bg-purple-500 mr-2"></span>
+                                            <a href="#" class="text-sm text-gray-700 hover:text-indigo-700 hover:underline" onclick="showTemplateModal('AI Model Management Policy')">AI Model Management Policy</a>
+                                        </li>
+                                        <li class="flex items-center">
+                                            <span class="inline-block w-2 h-2 rounded-full bg-purple-500 mr-2"></span>
+                                            <a href="#" class="text-sm text-gray-700 hover:text-indigo-700 hover:underline" onclick="showTemplateModal('AI Compliance Policy')">AI Compliance Policy</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <!-- Operational Policies -->
+                                <div>
+                                    <h5 class="text-sm font-semibold text-indigo-700 mb-2">Operational Policies</h5>
+                                    <ul class="space-y-1">
+                                        <li class="flex items-center">
+                                            <span class="inline-block w-2 h-2 rounded-full bg-purple-500 mr-2"></span>
+                                            <a href="#" class="text-sm text-gray-700 hover:text-indigo-700 hover:underline" onclick="showTemplateModal('AI Use Case Evaluation Policy')">AI Use Case Evaluation Policy</a>
+                                        </li>
+                                        <li class="flex items-center">
+                                            <span class="inline-block w-2 h-2 rounded-full bg-amber-500 mr-2"></span>
+                                            <a href="#" class="text-sm text-gray-700 hover:text-indigo-700 hover:underline" onclick="showTemplateModal('AI Testing and Quality Assurance Policy')">AI Testing and Quality Assurance Policy</a>
+                                        </li>
+                                        <li class="flex items-center">
+                                            <span class="inline-block w-2 h-2 rounded-full bg-amber-500 mr-2"></span>
+                                            <a href="#" class="text-sm text-gray-700 hover:text-indigo-700 hover:underline" onclick="showTemplateModal('AI Documentation and Knowledge Management Policy')">AI Documentation and Knowledge Management Policy</a>
+                                        </li>
+                                        <li class="flex items-center">
+                                            <span class="inline-block w-2 h-2 rounded-full bg-amber-500 mr-2"></span>
+                                            <a href="#" class="text-sm text-gray-700 hover:text-indigo-700 hover:underline" onclick="showTemplateModal('AI Incident Response Policy')">AI Incident Response Policy</a>
+                                        </li>
+                                        <li class="flex items-center">
+                                            <span class="inline-block w-2 h-2 rounded-full bg-amber-500 mr-2"></span>
+                                            <a href="#" class="text-sm text-gray-700 hover:text-indigo-700 hover:underline" onclick="showTemplateModal('Process-Centric AI Orchestration Policy')">Process-Centric AI Orchestration Policy</a>
+                                        </li>
+                                        <li class="flex items-center">
+                                            <span class="inline-block w-2 h-2 rounded-full bg-amber-500 mr-2"></span>
+                                            <a href="#" class="text-sm text-gray-700 hover:text-indigo-700 hover:underline" onclick="showTemplateModal('Business as Code Implementation Policy')">Business as Code Implementation Policy</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <!-- Specialized Policies -->
+                                <div>
+                                    <h5 class="text-sm font-semibold text-indigo-700 mb-2">Human & AI Interaction Policies</h5>
+                                    <ul class="space-y-1">
+                                        <li class="flex items-center">
+                                            <span class="inline-block w-2 h-2 rounded-full bg-purple-500 mr-2"></span>
+                                            <a href="#" class="text-sm text-gray-700 hover:text-indigo-700 hover:underline" onclick="showTemplateModal('Human Oversight Policy')">Human Oversight Policy</a>
+                                        </li>
+                                        <li class="flex items-center">
+                                            <span class="inline-block w-2 h-2 rounded-full bg-amber-500 mr-2"></span>
+                                            <a href="#" class="text-sm text-gray-700 hover:text-indigo-700 hover:underline" onclick="showTemplateModal('AI Procurement and Vendor Management Policy')">AI Procurement and Vendor Management Policy</a>
+                                        </li>
+                                        <li class="flex items-center">
+                                            <span class="inline-block w-2 h-2 rounded-full bg-amber-500 mr-2"></span>
+                                            <a href="#" class="text-sm text-gray-700 hover:text-indigo-700 hover:underline" onclick="showTemplateModal('Responsible AI Deployment Policy')">Responsible AI Deployment Policy</a>
+                                        </li>
+                                        <li class="flex items-center">
+                                            <span class="inline-block w-2 h-2 rounded-full bg-amber-500 mr-2"></span>
+                                            <a href="#" class="text-sm text-gray-700 hover:text-indigo-700 hover:underline" onclick="showTemplateModal('AI Explainability and Transparency Policy')">AI Explainability and Transparency Policy</a>
+                                        </li>
+                                        <li class="flex items-center">
+                                            <span class="inline-block w-2 h-2 rounded-full bg-amber-500 mr-2"></span>
+                                            <a href="#" class="text-sm text-gray-700 hover:text-indigo-700 hover:underline" onclick="showTemplateModal('AI Training and Capability Development Policy')">AI Training and Capability Development Policy</a>
+                                        </li>
+                                        <li class="flex items-center">
+                                            <span class="inline-block w-2 h-2 rounded-full bg-amber-500 mr-2"></span>
+                                            <a href="#" class="text-sm text-gray-700 hover:text-indigo-700 hover:underline" onclick="showTemplateModal('Change Management Policy for AI Initiatives')">Change Management Policy for AI Initiatives</a>
+                                        </li>
+                                        <li class="flex items-center">
+                                            <span class="inline-block w-2 h-2 rounded-full bg-amber-500 mr-2"></span>
+                                            <a href="#" class="text-sm text-gray-700 hover:text-indigo-700 hover:underline" onclick="showTemplateModal('Human-AI Collaboration Policy')">Human-AI Collaboration Policy</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="mt-4 pt-3 border-t border-gray-200 text-center">
+                                <div class="inline-flex items-center space-x-2">
+                                    <span class="inline-block w-2 h-2 rounded-full bg-blue-500"></span>
+                                    <span class="text-xs text-gray-500">Basic Package</span>
+                                    <span class="inline-block w-2 h-2 rounded-full bg-purple-500 ml-3"></span>
+                                    <span class="text-xs text-gray-500">Professional Package</span>
+                                    <span class="inline-block w-2 h-2 rounded-full bg-amber-500 ml-3"></span>
+                                    <span class="text-xs text-gray-500">Premium Package Only</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Template Modal -->
+    <div id="template-modal" class="fixed inset-0 overflow-y-auto hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+        <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+            <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true" onclick="closeTemplateModal()"></div>
+            
+            <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+            
+            <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-5xl sm:w-full">
+                <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                    <div class="sm:flex sm:items-start">
+                        <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left w-full">
+                            <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title"></h3>
+                            <div class="mt-2">
+                                <div id="modal-content" class="prose max-w-none text-sm text-gray-500"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                    <button type="button" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm" onclick="closeTemplateModal()">
+                        Close
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-white mt-12">
+        <div class="max-w-7xl mx-auto py-8 px-4 overflow-hidden sm:px-6 lg:px-8">
+            <p class="mt-8 text-center text-base text-gray-400">
+                &copy; 2025 AI Policy Generator. All rights reserved.
+            </p>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script>
+        // Toggle function for the complete policy list
+        function togglePolicyList() {
+            const policyList = document.getElementById('full-policy-list');
+            const chevron = document.getElementById('policy-list-chevron');
+            
+            if (policyList.classList.contains('hidden')) {
+                policyList.classList.remove('hidden');
+                chevron.classList.remove('fa-chevron-down');
+                chevron.classList.add('fa-chevron-up');
+            } else {
+                policyList.classList.add('hidden');
+                chevron.classList.remove('fa-chevron-up');
+                chevron.classList.add('fa-chevron-down');
+            }
+        }
+        
+        // Function to get an appropriate icon for each policy
+        function getPolicyIcon(policyTitle) {
+            const iconMap = {
+                'AI Ethics Policy': 'fa-balance-scale',
+                'AI Risk Management Policy': 'fa-shield-alt',
+                'AI Data Governance Policy': 'fa-database',
+                'AI Security Policy': 'fa-lock',
+                'AI Model Management Policy': 'fa-cogs',
+                'Human-AI Collaboration Policy': 'fa-users',
+                'AI Procurement and Vendor Management Policy': 'fa-handshake',
+                'AI Use Case Evaluation Policy': 'fa-clipboard-check',
+                'AI Compliance Policy': 'fa-check-double',
+                'Responsible AI Deployment Policy': 'fa-rocket',
+                'AI Explainability and Transparency Policy': 'fa-search',
+                'Human Oversight Policy': 'fa-eye',
+                'AI Training and Capability Development Policy': 'fa-graduation-cap',
+                'Change Management Policy for AI Initiatives': 'fa-exchange-alt',
+                'AI Incident Response Policy': 'fa-exclamation-triangle',
+                'AI Testing and Quality Assurance Policy': 'fa-vial',
+                'AI Documentation and Knowledge Management Policy': 'fa-book',
+                'Process-Centric AI Orchestration Policy': 'fa-sitemap',
+                'Business as Code Implementation Policy': 'fa-code',
+                'Enterprise AI Governance Policy': 'fa-landmark'
+            };
+            
+            return iconMap[policyTitle] || 'fa-file-alt';
+        }
+        
+        // Purpose and scope content for each policy
+        const policyPurposeAndScope = {
+            'AI Ethics Policy': 'This policy establishes ethical principles and guidelines for the development, deployment, and operation of AI systems within the organization. It applies to all employees, contractors, and third parties involved in AI initiatives.',
+            
+            'AI Risk Management Policy': 'This policy establishes a framework for identifying, assessing, and mitigating risks associated with AI systems throughout their lifecycle. It applies to all AI initiatives and systems deployed or used by the organization.',
+            
+            'AI Data Governance Policy': 'This policy establishes requirements for managing data used in AI systems, ensuring quality, privacy, security, and compliance. It applies to all data used in AI initiatives, including training, testing, validation, and production data.',
+            
+            'AI Security Policy': 'This policy defines security requirements for AI systems to ensure confidentiality, integrity, and availability. It applies to all AI systems developed, deployed, or used by the organization and addresses both traditional cybersecurity concerns and AI-specific vulnerabilities.',
+            
+            'AI Model Management Policy': 'This policy establishes standards and procedures for managing AI models throughout their lifecycle, from development to retirement. It applies to all machine learning and AI models deployed or used within the organization.',
+            
+            'Human-AI Collaboration Policy': 'This policy establishes frameworks for effective human-AI interaction and oversight. It ensures appropriate human involvement in AI system decision-making and defines boundaries for automation.',
+            
+            'AI Procurement and Vendor Management Policy': 'This policy establishes guidelines for acquiring AI technologies from external vendors and managing these relationships. It applies to all procurement activities related to AI systems, tools, and services.',
+            
+            'AI Use Case Evaluation Policy': 'This policy establishes criteria and procedures for evaluating, prioritizing, and approving AI use cases. It helps ensure that AI initiatives align with organizational goals and ethical standards.',
+            
+            'AI Compliance Policy': 'This policy ensures that AI systems comply with applicable laws, regulations, and industry standards. It establishes processes to monitor regulatory developments and maintain compliance throughout the AI lifecycle.',
+            
+            'Enterprise AI Governance Policy': 'This policy establishes the overarching framework for governing AI activities across the organization. It defines roles, responsibilities, decision-making structures, and the relationship with other governance functions.'
+        };
+
+        // Template preview content - first 5 lines of each policy template
+        const policyTemplates = {
+            'AI Ethics Policy': `# AI Ethics Policy
+
+**Policy Number:** ETH-AI-001  
+**Effective Date:** [Insert Date]  
+**Last Review Date:** [Insert Date]  
+**Next Review Date:** [Insert Date]`,
+
+            'AI Data Governance Policy': `# AI Data Governance Policy
+
+**Policy Number:** DATA-AI-001  
+**Effective Date:** [Insert Date]  
+**Last Review Date:** [Insert Date]  
+**Next Review Date:** [Insert Date]`,
+
+            'AI Risk Management Policy': `# AI Risk Management Policy
+
+**Policy Number:** RISK-AI-001  
+**Effective Date:** [Insert Date]  
+**Last Review Date:** [Insert Date]  
+**Next Review Date:** [Insert Date]`,
+
+            'AI Security Policy': `# AI Security Policy
+
+**Policy Number:** SEC-AI-001  
+**Effective Date:** [Insert Date]  
+**Last Review Date:** [Insert Date]  
+**Next Review Date:** [Insert Date]`,
+
+            'AI Model Management Policy': `# AI Model Management Policy
+
+**Policy Number:** MDL-AI-001  
+**Effective Date:** [Insert Date]  
+**Last Review Date:** [Insert Date]  
+**Next Review Date:** [Insert Date]`,
+
+            'Enterprise AI Governance Policy': `# Enterprise AI Governance Policy
+
+**Policy Number:** GOV-AI-001  
+**Effective Date:** [Insert Date]  
+**Last Review Date:** [Insert Date]  
+**Next Review Date:** [Insert Date]`
+        };
+        
+        // Add placeholders for other policies
+        const allPolicies = [
+            'AI Procurement and Vendor Management Policy',
+            'AI Use Case Evaluation Policy',
+            'AI Compliance Policy',
+            'Responsible AI Deployment Policy',
+            'AI Explainability and Transparency Policy',
+            'Human Oversight Policy',
+            'AI Training and Capability Development Policy',
+            'Change Management Policy for AI Initiatives',
+            'AI Incident Response Policy',
+            'AI Testing and Quality Assurance Policy',
+            'AI Documentation and Knowledge Management Policy',
+            'Process-Centric AI Orchestration Policy',
+            'Business as Code Implementation Policy'
+        ];
+        
+        // Add placeholder templates for policies not yet created
+        allPolicies.forEach(policy => {
+            if (!policyTemplates[policy]) {
+                policyTemplates[policy] = `# ${policy}
+
+**Policy Number:** [POLICY-ID]  
+**Effective Date:** [Insert Date]  
+**Last Review Date:** [Insert Date]  
+**Next Review Date:** [Insert Date]`;
+            }
+        });
+
+        function showTemplateModal(policyTitle) {
+            document.getElementById('modal-title').textContent = policyTitle;
+            
+            // Get policy preview content
+            let previewContent = policyTemplates[policyTitle] || `# ${policyTitle}\n\n**Policy preview not available**`;
+            
+            // Extract purpose and scope from policies that have it
+            let purposeAndScope = "";
+            if (policyPurposeAndScope[policyTitle]) {
+                purposeAndScope = policyPurposeAndScope[policyTitle];
+            } else {
+                purposeAndScope = "Purpose and scope details are available in the full policy template.";
+            }
+            
+            // Set modal content with HTML preview and watermark
+            let content = `
+                <div class="mb-6 relative">
+                    <!-- Policy Header Preview -->
+                    <div class="bg-white border border-gray-200 rounded-t-lg p-6 relative overflow-hidden shadow-sm">
+                        <div class="absolute inset-0 flex items-center justify-center opacity-10 rotate-45 text-7xl font-bold text-gray-600">
+                            PREVIEW ONLY
+                        </div>
+                        
+                        <div class="relative z-10">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <h1 class="text-2xl font-bold text-gray-900">${policyTitle}</h1>
+                                    <div class="mt-2 text-sm text-gray-600">
+                                        <p><strong>Policy Number:</strong> ${policyTitle.replace(/[^A-Z]/g, '').substring(0, 3)}-AI-001</p>
+                                        <p><strong>Effective Date:</strong> [To be determined]</p>
+                                        <p><strong>Last Review Date:</strong> [To be determined]</p>
+                                        <p><strong>Next Review Date:</strong> [To be determined]</p>
+                                        <p><strong>Policy Owner:</strong> Chief AI Officer</p>
+                                    </div>
+                                </div>
+                                <div class="flex-shrink-0 hidden sm:block">
+                                    <div class="w-16 h-16 rounded-full bg-indigo-100 flex items-center justify-center">
+                                        <i class="fas ${getPolicyIcon(policyTitle)} text-indigo-600 text-xl"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Purpose and Scope Section -->
+                            <div class="mt-6">
+                                <h2 class="text-lg font-semibold text-gray-900 border-b border-gray-200 pb-2 mb-3">1. Purpose and Scope</h2>
+                                <div class="prose prose-sm max-w-none text-gray-700">
+                                    <p>${purposeAndScope}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Blurred Content Teaser -->
+                    <div class="bg-gray-50 border-x border-b border-gray-200 rounded-b-lg p-6 relative overflow-hidden shadow-sm">
+                        <div class="blur-sm">
+                            <h2 class="text-lg font-semibold text-gray-900 border-b border-gray-200 pb-2 mb-3">2. Key Definitions</h2>
+                            <div class="prose prose-sm max-w-none mb-4">
+                                <ul class="list-disc pl-5 text-gray-700">
+                                    <li><strong>Lorem ipsum:</strong> Lorem ipsum dolor sit amet</li>
+                                    <li><strong>Dolor sit:</strong> Consectetur adipiscing elit</li>
+                                    <li><strong>Amet consectetur:</strong> Sed do eiusmod tempor</li>
+                                </ul>
+                            </div>
+                            
+                            <h2 class="text-lg font-semibold text-gray-900 border-b border-gray-200 pb-2 mb-3">3. Policy Statements</h2>
+                            <div class="blur-lg prose prose-sm max-w-none">
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Overlay to indicate more content -->
+                        <div class="absolute inset-0 bg-gradient-to-b from-transparent to-white flex items-end justify-center">
+                            <div class="text-center pb-6">
+                                <p class="text-sm font-medium text-indigo-600 mb-2">Full policy template includes additional sections</p>
+                                <i class="fas fa-lock text-gray-400"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-indigo-50 p-4 rounded-md border-l-4 border-indigo-500">
+                    <h4 class="font-medium text-indigo-700 mb-2">Full Template Access</h4>
+                    <p class="text-sm text-gray-700">This is a preview of the policy template. Purchase a package to access the complete template with:</p>
+                    <ul class="mt-2 space-y-1 text-sm text-gray-700 list-disc pl-5">
+                        <li>Complete policy sections with detailed guidance</li>
+                        <li>Customizable templates (Word & PDF formats)</li>
+                        <li>Implementation guidelines and best practices</li>
+                        <li>Role-specific responsibilities and procedures</li>
+                    </ul>
+                    <div class="mt-4">
+                        <a href="pricing.html" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                            View Pricing Options
+                        </a>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('modal-content').innerHTML = content;
+            document.getElementById('template-modal').classList.remove('hidden');
+        }
+        
+        function closeTemplateModal() {
+            document.getElementById('template-modal').classList.add('hidden');
+        }
+    </script>
+</body>
+</html>

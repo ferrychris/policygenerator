@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Policy Generator - Installation Guide</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="bg-white shadow overflow-hidden sm:rounded-lg">
+            <div class="px-4 py-5 sm:px-6">
+                <h1 class="text-2xl font-bold text-gray-900">AI Policy Generator Installation Guide</h1>
+                <p class="mt-1 max-w-2xl text-sm text-gray-500">Follow these steps to set up the application with Stripe payment processing.</p>
+            </div>
+            <div class="border-t border-gray-200 px-4 py-5 sm:px-6">
+                <h2 class="text-lg font-medium text-gray-900 mb-4">Prerequisites</h2>
+                <ul class="list-disc pl-5 text-gray-700">
+                    <li class="mb-2">Node.js (v14 or later)</li>
+                    <li class="mb-2">npm or yarn</li>
+                    <li class="mb-2">Stripe account</li>
+                </ul>
+            </div>
+            <div class="border-t border-gray-200 px-4 py-5 sm:px-6">
+                <h2 class="text-lg font-medium text-gray-900 mb-4">Installation Steps</h2>
+                <ol class="list-decimal pl-5 text-gray-700">
+                    <li class="mb-4">
+                        <p class="font-medium">Clone the repository</p>
+                        <pre class="bg-gray-100 p-3 mt-2 rounded-md text-sm">git clone &lt;repository-url&gt;
+cd policy-generator</pre>
+                    </li>
+                    <li class="mb-4">
+                        <p class="font-medium">Install dependencies</p>
+                        <pre class="bg-gray-100 p-3 mt-2 rounded-md text-sm">npm install</pre>
+                    </li>
+                    <li class="mb-4">
+                        <p class="font-medium">Configure environment variables</p>
+                        <p class="mt-1">Copy the .env.example file to .env and update with your Stripe API keys</p>
+                        <pre class="bg-gray-100 p-3 mt-2 rounded-md text-sm">cp .env.example .env
+# Edit .env with your text editor</pre>
+                    </li>
+                    <li class="mb-4">
+                        <p class="font-medium">Start the server</p>
+                        <pre class="bg-gray-100 p-3 mt-2 rounded-md text-sm">npm run dev</pre>
+                        <p class="mt-1">This will start a development server at http://localhost:3000</p>
+                    </li>
+                </ol>
+            </div>
+            <div class="border-t border-gray-200 px-4 py-5 sm:px-6">
+                <h2 class="text-lg font-medium text-gray-900 mb-4">Stripe Configuration</h2>
+                <p class="mb-3">To use real Stripe payments instead of simulation:</p>
+                <ol class="list-decimal pl-5 text-gray-700">
+                    <li class="mb-2">Create a Stripe account at <a href="https://stripe.com" class="text-indigo-600 hover:text-indigo-500">stripe.com</a></li>
+                    <li class="mb-2">Get your API keys from the Stripe Dashboard</li>
+                    <li class="mb-2">Update the .env file with your keys</li>
+                    <li class="mb-2">Open js/payments.js and set <code class="bg-gray-100 px-1 py-0.5 rounded">USE_REAL_PAYMENT_API = true</code></li>
+                </ol>
+            </div>
+            <div class="border-t border-gray-200 px-4 py-5 sm:px-6">
+                <h2 class="text-lg font-medium text-gray-900 mb-4">Testing Payments</h2>
+                <p class="mb-3">Use these test card numbers for testing:</p>
+                <ul class="list-disc pl-5 text-gray-700">
+                    <li class="mb-2"><code class="bg-gray-100 px-1 py-0.5 rounded">4242 4242 4242 4242</code> - Successful payment</li>
+                    <li class="mb-2"><code class="bg-gray-100 px-1 py-0.5 rounded">4000 0000 0000 0002</code> - Declined payment</li>
+                    <li class="mb-2">Use any future expiration date, any 3-digit CVC, and any 5-digit ZIP code</li>
+                </ul>
+            </div>
+        </div>
+        <div class="mt-8 text-center">
+            <a href="index.html" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                Go to Home Page
+            </a>
+        </div>
+    </div>
+</body>
+</html>

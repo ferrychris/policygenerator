@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Policy Generator Tool</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.1.0/github-markdown.min.css">
+    <script src="https://js.stripe.com/v3/"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body class="antialiased bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex">
+                    <div class="flex-shrink-0 flex items-center">
+                        <div class="flex flex-col items-start">
+                            <span class="text-xl font-bold gradient-text">WhitegloveAI</span>
+                            <span class="text-sm font-light text-gray-700">Policy Generator</span>
+                        </div>
+                    </div>
+                    <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
+                        <a href="index.html" id="nav-home" class="border-transparent text-gray-700 hover:text-indigo-600 hover:border-indigo-500 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                            Home
+                        </a>
+                        <a href="templates.html" id="nav-templates" class="border-transparent text-gray-700 hover:text-indigo-600 hover:border-indigo-500 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                            Templates
+                        </a>
+                        <a href="framework.html" id="nav-framework" class="border-transparent text-gray-700 hover:text-indigo-600 hover:border-indigo-500 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                            Framework
+                        </a>
+                        <a href="pricing.html" id="nav-pricing" class="border-transparent text-gray-700 hover:text-indigo-600 hover:border-indigo-500 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                            Pricing
+                        </a>
+                        <a href="generator.html" id="nav-generator" class="border-indigo-500 text-indigo-600 border-b-2 inline-flex items-center px-1 pt-1 text-sm font-medium">
+                            Generator
+                        </a>
+                    </div>
+                </div>
+                <div class="hidden sm:ml-6 sm:flex sm:items-center">
+                    <a href="#" class="px-4 py-2 text-sm font-medium text-gray-700 hover:text-indigo-600" onclick="toggleDarkMode()">
+                        <i class="fas fa-moon"></i>
+                    </a>
+                    <button id="account-button" class="ml-3 px-4 py-2 text-sm font-medium rounded-md text-white gradient-bg hover:opacity-90">
+                        <i class="fas fa-user mr-2"></i> My Account
+                    </button>
+                </div>
+                <div class="-mr-2 flex items-center sm:hidden">
+                    <button type="button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500" onclick="toggleMobileMenu()">
+                        <span class="sr-only">Open main menu</span>
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile menu, show/hide based on menu state -->
+        <div class="sm:hidden hidden" id="mobile-menu">
+            <div class="pt-2 pb-3 space-y-1">
+                <a href="index.html" class="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">Home</a>
+                <a href="templates.html" class="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">Templates</a>
+                <a href="framework.html" class="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">Framework</a>
+                <a href="pricing.html" class="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">Pricing</a>
+                <a href="generator.html" class="bg-indigo-50 border-indigo-500 text-indigo-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">Generator</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Generator Section -->
+        <div class="bg-white shadow overflow-hidden sm:rounded-lg mb-8">
+            <div class="px-4 py-5 sm:px-6">
+                <h3 class="text-lg leading-6 font-medium text-gray-900">AI Policy Generator</h3>
+                <p class="mt-1 max-w-2xl text-sm text-gray-500">Fill out the questionnaire to generate your custom AI policies.</p>
+            </div>
+            <div class="border-t border-gray-200">
+                <form id="policy-form" class="p-6" onsubmit="generatePolicies(event)">
+                    <!-- Organization Profile Section -->
+                    <div class="mb-8">
+                        <h2 class="text-xl font-semibold mb-4 gradient-text">Organization Profile</h2>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label for="org-name" class="block text-sm font-medium text-gray-700">Organization Name</label>
+                                <input type="text" id="org-name" name="org-name" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required>
+                            </div>
+                            
+                            <div>
+                                <label for="industry" class="block text-sm font-medium text-gray-700">Industry Sector</label>
+                                <select id="industry" name="industry" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required>
+                                    <option value="">Select industry...</option>
+                                    <option value="healthcare">Healthcare/Life Sciences</option>
+                                    <option value="financial">Financial Services/Banking/Insurance</option>
+                                    <option value="manufacturing">Manufacturing</option>
+                                    <option value="retail">Retail/E-commerce</option>
+                                    <option value="technology">Technology</option>
+                                    <option value="education">Education</option>
+                                    <option value="government">Government/Public Sector</option>
+                                    <option value="transportation">Transportation/Logistics</option>
+                                    <option value="energy">Energy/Utilities</option>
+                                    <option value="telecom">Telecommunications</option>
+                                    <option value="media">Media/Entertainment</option>
+                                    <option value="professional">Professional Services</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                            
+                            <div>
+                                <label for="size" class="block text-sm font-medium text-gray-700">Organization Size</label>
+                                <select id="size" name="size" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required>
+                                    <option value="">Select size...</option>
+                                    <option value="small">Small (1-99 employees)</option>
+                                    <option value="medium">Medium (100-999 employees)</option>
+                                    <option value="large">Large (1,000-9,999 employees)</option>
+                                    <option value="enterprise">Enterprise (10,000+ employees)</option>
+                                </select>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Geographic Operations</label>
+                                <div class="mt-2 space-y-2">
+                                    <div class="flex items-start">
+                                        <div class="flex items-center h-5">
+                                            <input id="geo-na" name="geo-na" type="checkbox" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
+                                        </div>
+                                        <div class="ml-3 text-sm">
+                                            <label for="geo-na" class="font-medium text-gray-700">North America</label>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start">
+                                        <div class="flex items-center h-5">
+                                            <input id="geo-eu" name="geo-eu" type="checkbox" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
+                                        </div>
+                                        <div class="ml-3 text-sm">
+                                            <label for="geo-eu" class="font-medium text-gray-700">Europe (EU)</label>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start">
+                                        <div class="flex items-center h-5">
+                                            <input id="geo-global" name="geo-global" type="checkbox" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
+                                        </div>
+                                        <div class="ml-3 text-sm">
+                                            <label for="geo-global" class="font-medium text-gray-700">Global</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- AI Maturity and Policy Areas Section -->
+                    <div class="mb-8">
+                        <h2 class="text-xl font-semibold mb-4 gradient-text">AI Maturity & Policy Areas</h2>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label for="ai-maturity" class="block text-sm font-medium text-gray-700">AI Maturity Level</label>
+                                <select id="ai-maturity" name="ai-maturity" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required>
+                                    <option value="">Select maturity level...</option>
+                                    <option value="exploring">Exploring (considering AI adoption)</option>
+                                    <option value="initiating">Initiating (first AI pilots underway)</option>
+                                    <option value="developing">Developing (multiple AI projects in production)</option>
+                                    <option value="advanced">Advanced (AI widely integrated across organization)</option>
+                                    <option value="leading">Leading (sophisticated AI governance and innovation)</option>
+                                </select>
+                            </div>
+                            
+                            <div>
+                                <label for="ai-strategy" class="block text-sm font-medium text-gray-700">AI Strategy</label>
+                                <select id="ai-strategy" name="ai-strategy" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required>
+                                    <option value="">Select strategy status...</option>
+                                    <option value="formal">We have a formal AI strategy</option>
+                                    <option value="developing">We are developing an AI strategy</option>
+                                    <option value="informal">We have informal AI initiatives without a formal strategy</option>
+                                    <option value="exploring">We are just beginning to explore AI</option>
+                                </select>
+                            </div>
+                            
+                            <div class="md:col-span-2">
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Policy Selection by Phase</label>
+                                
+                                <div class="bg-blue-50 border-l-4 border-blue-500 p-4 mb-6">
+                                    <div class="flex">
+                                        <div class="flex-shrink-0">
+                                            <i class="fas fa-info-circle text-blue-500"></i>
+                                        </div>
+                                        <div class="ml-3">
+                                            <h3 class="text-sm font-medium text-blue-800">Choose Your Policy Package</h3>
+                                            <div class="mt-2 text-sm text-blue-700">
+                                                <p class="mb-2">Our simple 3-step process:</p>
+                                                <ol class="list-decimal pl-5 space-y-1 mb-3">
+                                                    <li>Select your policy package (Basic, Professional, or Premium)</li>
+                                                    <li>Fill out our questionnaire to customize your policies</li>
+                                                    <li>Review your generated policies tailored to your needs</li>
+                                                </ol>
+                                                
+                                                <p class="mb-2">Select the policies that match your organization's AI governance needs:</p>
+                                                <ul class="list-disc pl-5 space-y-1">
+                                                    <li><strong>Basic Package ($900):</strong> 3 fundamental policies</li>
+                                                    <li><strong>Professional Package ($1,500):</strong> 8 essential policies</li>
+                                                    <li><strong>Premium Package ($5,000):</strong> Complete suite of 19 policies</li>
+                                                </ul>
+                                                <p class="mt-2">
+                                                    <span id="selected-count" class="font-bold">0</span> policies selected.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Basic Package Policies -->
+                                <div class="mb-6 border border-indigo-100 rounded-lg p-4 bg-gradient-to-r from-indigo-50 to-white">
+                                    <h3 class="text-md font-semibold text-indigo-800 mb-3">
+                                        <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-indigo-600 text-white text-xs mr-2">1</span>
+                                        Basic Package - Fundamental Policies
+                                    </h3>
+                                    <p class="text-sm text-gray-600 mb-4">Fundamental policies for organizations starting with AI governance.</p>
+                                    
+                                    <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                                        <div class="flex items-start bg-white p-3 rounded border border-gray-100 shadow-sm">
+                                            <div class="flex items-center h-5">
+                                                <input id="policy-ethics" name="policy-ethics" type="checkbox" class="policy-checkbox focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" checked data-package="basic">
+                                            </div>
+                                            <div class="ml-3 text-sm">
+                                                <label for="policy-ethics" class="font-medium text-gray-700">AI Ethics Policy</label>
+                                                <p class="text-gray-500 text-xs">Core ethical principles and standards</p>
+                                            </div>
+                                        </div>
+                                        <div class="flex items-start bg-white p-3 rounded border border-gray-100 shadow-sm">
+                                            <div class="flex items-center h-5">
+                                                <input id="policy-risk" name="policy-risk" type="checkbox" class="policy-checkbox focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" checked data-package="basic">
+                                            </div>
+                                            <div class="ml-3 text-sm">
+                                                <label for="policy-risk" class="font-medium text-gray-700">AI Risk Management Policy</label>
+                                                <p class="text-gray-500 text-xs">Risk assessment and mitigation</p>
+                                            </div>
+                                        </div>
+                                        <div class="flex items-start bg-white p-3 rounded border border-gray-100 shadow-sm">
+                                            <div class="flex items-center h-5">
+                                                <input id="policy-data" name="policy-data" type="checkbox" class="policy-checkbox focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" checked data-package="basic">
+                                            </div>
+                                            <div class="ml-3 text-sm">
+                                                <label for="policy-data" class="font-medium text-gray-700">AI Data Governance Policy</label>
+                                                <p class="text-gray-500 text-xs">Data management for AI systems</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Professional Package Policies -->
+                                <div class="mb-6 border border-purple-100 rounded-lg p-4 bg-gradient-to-r from-purple-50 to-white">
+                                    <h3 class="text-md font-semibold text-purple-800 mb-3">
+                                        <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-purple-600 text-white text-xs mr-2">2</span>
+                                        Professional Package - Essential Policies
+                                        <span class="ml-2 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800">
+                                            Popular Choice
+                                        </span>
+                                    </h3>
+                                    <p class="text-sm text-gray-600 mb-4">For organizations scaling their AI operations with structured processes.</p>
+                                    
+                                    <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                                        <div class="flex items-start bg-white p-3 rounded border border-gray-100 shadow-sm">
+                                            <div class="flex items-center h-5">
+                                                <input id="policy-security" name="policy-security" type="checkbox" class="policy-checkbox focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" data-package="professional">
+                                            </div>
+                                            <div class="ml-3 text-sm">
+                                                <label for="policy-security" class="font-medium text-gray-700">AI Security Policy</label>
+                                                <p class="text-gray-500 text-xs">Security controls for AI systems</p>
+                                            </div>
+                                        </div>
+                                        <div class="flex items-start bg-white p-3 rounded border border-gray-100 shadow-sm">
+                                            <div class="flex items-center h-5">
+                                                <input id="policy-model" name="policy-model" type="checkbox" class="policy-checkbox focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" data-package="professional">
+                                            </div>
+                                            <div class="ml-3 text-sm">
+                                                <label for="policy-model" class="font-medium text-gray-700">AI Model Management Policy</label>
+                                                <p class="text-gray-500 text-xs">Model development and monitoring</p>
+                                            </div>
+                                        </div>
+                                        <div class="flex items-start bg-white p-3 rounded border border-gray-100 shadow-sm">
+                                            <div class="flex items-center h-5">
+                                                <input id="policy-human" name="policy-human" type="checkbox" class="policy-checkbox focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" data-package="professional">
+                                            </div>
+                                            <div class="ml-3 text-sm">
+                                                <label for="policy-human" class="font-medium text-gray-700">Human Oversight Policy</label>
+                                                <p class="text-gray-500 text-xs">Human-AI collaboration guidelines</p>
+                                            </div>
+                                        </div>
+                                        <div class="flex items-start bg-white p-3 rounded border border-gray-100 shadow-sm">
+                                            <div class="flex items-center h-5">
+                                                <input id="policy-compliance" name="policy-compliance" type="checkbox" class="policy-checkbox focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" data-package="professional">
+                                            </div>
+                                            <div class="ml-3 text-sm">
+                                                <label for="policy-compliance" class="font-medium text-gray-700">AI Compliance Policy</label>
+                                                <p class="text-gray-500 text-xs">Regulatory compliance framework</p>
+                                            </div>
+                                        </div>
+                                        <div class="flex items-start bg-white p-3 rounded border border-gray-100 shadow-sm">
+                                            <div class="flex items-center h-5">
+                                                <input id="policy-usecase" name="policy-usecase" type="checkbox" class="policy-checkbox focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" data-package="professional">
+                                            </div>
+                                            <div class="ml-3 text-sm">
+                                                <label for="policy-usecase" class="font-medium text-gray-700">AI Use Case Evaluation Policy</label>
+                                                <p class="text-gray-500 text-xs">Use case assessment framework</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Premium Package Policies -->
+                                <div class="mb-4 border border-[#33D9DA]/30 rounded-lg p-4 bg-gradient-to-r from-[#33D9DA]/10 to-white">
+                                    <h3 class="text-md font-semibold text-[#33D9DA] mb-3">
+                                        <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-[#33D9DA] text-white text-xs mr-2">3</span>
+                                        Premium Package - Complete Policy Suite
+                                    </h3>
+                                    <p class="text-sm text-gray-600 mb-4">Complete suite for organizations with mature AI governance frameworks.</p>
+                                    
+                                    <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                                        <div class="flex items-start bg-white p-3 rounded border border-gray-100 shadow-sm">
+                                            <div class="flex items-center h-5">
+                                                <input id="policy-vendor" name="policy-vendor" type="checkbox" class="policy-checkbox focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" data-package="premium">
+                                            </div>
+                                            <div class="ml-3 text-sm">
+                                                <label for="policy-vendor" class="font-medium text-gray-700">AI Procurement & Vendor Policy</label>
+                                                <p class="text-gray-500 text-xs">Third-party AI sourcing guidelines</p>
+                                            </div>
+                                        </div>
+                                        <div class="flex items-start bg-white p-3 rounded border border-gray-100 shadow-sm">
+                                            <div class="flex items-center h-5">
+                                                <input id="policy-deployment" name="policy-deployment" type="checkbox" class="policy-checkbox focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" data-package="premium">
+                                            </div>
+                                            <div class="ml-3 text-sm">
+                                                <label for="policy-deployment" class="font-medium text-gray-700">Responsible AI Deployment</label>
+                                                <p class="text-gray-500 text-xs">Safe deployment guidelines</p>
+                                            </div>
+                                        </div>
+                                        <div class="flex items-start bg-white p-3 rounded border border-gray-100 shadow-sm">
+                                            <div class="flex items-center h-5">
+                                                <input id="policy-training" name="policy-training" type="checkbox" class="policy-checkbox focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" data-package="premium">
+                                            </div>
+                                            <div class="ml-3 text-sm">
+                                                <label for="policy-training" class="font-medium text-gray-700">AI Training & Capability Policy</label>
+                                                <p class="text-gray-500 text-xs">Staff training requirements</p>
+                                            </div>
+                                        </div>
+                                        <div class="flex items-start bg-white p-3 rounded border border-gray-100 shadow-sm">
+                                            <div class="flex items-center h-5">
+                                                <input id="policy-incident" name="policy-incident" type="checkbox" class="policy-checkbox focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" data-package="premium">
+                                            </div>
+                                            <div class="ml-3 text-sm">
+                                                <label for="policy-incident" class="font-medium text-gray-700">AI Incident Response Policy</label>
+                                                <p class="text-gray-500 text-xs">Incident handling procedures</p>
+                                            </div>
+                                        </div>
+                                        <div class="flex items-start bg-white p-3 rounded border border-gray-100 shadow-sm">
+                                            <div class="flex items-center h-5">
+                                                <input id="policy-governance" name="policy-governance" type="checkbox" class="policy-checkbox focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" data-package="premium">
+                                            </div>
+                                            <div class="ml-3 text-sm">
+                                                <label for="policy-governance" class="font-medium text-gray-700">AI Governance Committee Policy</label>
+                                                <p class="text-gray-500 text-xs">Governance structure guidelines</p>
+                                            </div>
+                                        </div>
+                                        <div class="flex items-start bg-white p-3 rounded border border-gray-100 shadow-sm">
+                                            <div class="flex items-center h-5">
+                                                <input id="policy-transparency" name="policy-transparency" type="checkbox" class="policy-checkbox focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" data-package="premium">
+                                            </div>
+                                            <div class="ml-3 text-sm">
+                                                <label for="policy-transparency" class="font-medium text-gray-700">AI Transparency Policy</label>
+                                                <p class="text-gray-500 text-xs">Disclosure and explainability</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mt-4 bg-[#33D9DA]/10 p-3 rounded-lg">
+                                        <p class="text-sm text-[#33D9DA]/80">
+                                            <i class="fas fa-plus-circle mr-1"></i> 
+                                            The Premium Package includes 7 additional specialized policies covering AI auditing, intellectual property, 
+                                            fairness assessment, regulatory compliance, continuous improvement, stakeholder engagement, 
+                                            and AI impact assessment.
+                                        </p>
+                                    </div>
+                                </div>
+                                
+                                <div id="premium-notice" class="hidden mt-4 p-4 border-l-4 border-yellow-400 bg-yellow-50">
+                                    <div class="flex">
+                                        <div class="flex-shrink-0">
+                                            <i class="fas fa-exclamation-triangle text-yellow-400"></i>
+                                        </div>
+                                        <div class="ml-3">
+                                            <h3 class="text-sm font-medium text-yellow-800">Package Selection</h3>
+                                            <div class="mt-2 text-sm text-yellow-700">
+                                                <p>Your selected policies will require one of our policy packages:</p>
+                                                <ul class="list-disc pl-5 mt-1">
+                                                    <li>Basic Package ($900): 3 fundamental policies</li>
+                                                    <li>Professional Package ($1,500): 8 essential policies (includes all Basic policies)</li>
+                                                    <li>Premium Package ($5,000): All 19 policies (includes all Professional policies)</li>
+                                                </ul>
+                                                <p class="mt-1">You'll be prompted for payment options after completing the questionnaire.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Ethics & Risk Section - Simplified -->
+                    <div class="mb-8">
+                        <h2 class="text-xl font-semibold mb-4 gradient-text">Ethics & Risk Management</h2>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Ethical AI Principles</label>
+                                <div class="space-y-2">
+                                    <div class="flex items-start">
+                                        <div class="flex items-center h-5">
+                                            <input id="ethics-fairness" name="ethics-fairness" type="checkbox" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" checked>
+                                        </div>
+                                        <div class="ml-3 text-sm">
+                                            <label for="ethics-fairness" class="font-medium text-gray-700">Fairness and non-discrimination</label>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start">
+                                        <div class="flex items-center h-5">
+                                            <input id="ethics-transparency" name="ethics-transparency" type="checkbox" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" checked>
+                                        </div>
+                                        <div class="ml-3 text-sm">
+                                            <label for="ethics-transparency" class="font-medium text-gray-700">Transparency and explainability</label>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start">
+                                        <div class="flex items-center h-5">
+                                            <input id="ethics-privacy" name="ethics-privacy" type="checkbox" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" checked>
+                                        </div>
+                                        <div class="ml-3 text-sm">
+                                            <label for="ethics-privacy" class="font-medium text-gray-700">Privacy and data protection</label>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start">
+                                        <div class="flex items-center h-5">
+                                            <input id="ethics-safety" name="ethics-safety" type="checkbox" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" checked>
+                                        </div>
+                                        <div class="ml-3 text-sm">
+                                            <label for="ethics-safety" class="font-medium text-gray-700">Safety and security</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Risk Categories</label>
+                                <div class="space-y-2">
+                                    <div class="flex items-start">
+                                        <div class="flex items-center h-5">
+                                            <input id="risk-technical" name="risk-technical" type="checkbox" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" checked>
+                                        </div>
+                                        <div class="ml-3 text-sm">
+                                            <label for="risk-technical" class="font-medium text-gray-700">Technical risks (performance, accuracy)</label>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start">
+                                        <div class="flex items-center h-5">
+                                            <input id="risk-ethical" name="risk-ethical" type="checkbox" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" checked>
+                                        </div>
+                                        <div class="ml-3 text-sm">
+                                            <label for="risk-ethical" class="font-medium text-gray-700">Ethical risks (bias, fairness)</label>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start">
+                                        <div class="flex items-center h-5">
+                                            <input id="risk-legal" name="risk-legal" type="checkbox" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" checked>
+                                        </div>
+                                        <div class="ml-3 text-sm">
+                                            <label for="risk-legal" class="font-medium text-gray-700">Legal/compliance risks</label>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start">
+                                        <div class="flex items-center h-5">
+                                            <input id="risk-reputation" name="risk-reputation" type="checkbox" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" checked>
+                                        </div>
+                                        <div class="ml-3 text-sm">
+                                            <label for="risk-reputation" class="font-medium text-gray-700">Reputational risks</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-8">
+                        <h2 class="text-xl font-semibold mb-4 gradient-text">Additional Requirements</h2>
+                        
+                        <div>
+                            <label for="additional-requirements" class="block text-sm font-medium text-gray-700">Any specific requirements or considerations not covered in the questionnaire?</label>
+                            <textarea id="additional-requirements" name="additional-requirements" rows="3" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"></textarea>
+                        </div>
+                    </div>
+                    
+                    <div class="flex justify-center mt-8">
+                        <button type="submit" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white gradient-bg hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                            Generate Policies
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+        <!-- Results Section (Initially Hidden) -->
+        <div id="results-section" class="hidden bg-white shadow overflow-hidden sm:rounded-lg">
+            <div class="px-4 py-5 sm:px-6">
+                <h3 class="text-lg leading-6 font-medium text-gray-900">Your Generated AI Policies</h3>
+                <p class="mt-1 max-w-2xl text-sm text-gray-500">Customized policies based on your organization's profile and needs.</p>
+            </div>
+            <div class="border-t border-gray-200 px-4 py-5 sm:p-6">
+                <div id="generated-policies" class="space-y-6">
+                    <!-- Policies will be inserted here -->
+                </div>
+                <div class="mt-8 flex justify-center">
+                    <button type="button" id="download-policies" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 mr-3">
+                        <i class="fas fa-download mr-2"></i> Download All Policies
+                    </button>
+                    <button type="button" id="reset-form" class="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" onclick="resetForm()">
+                        <i class="fas fa-redo mr-2"></i> Generate New Policies
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-white mt-12">
+        <div class="max-w-7xl mx-auto py-8 px-4 overflow-hidden sm:px-6 lg:px-8">
+            <p class="mt-8 text-center text-base text-gray-400">
+                &copy; 2025 AI Policy Generator. All rights reserved.
+            </p>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/generator.js"></script>
+</body>
+</html>

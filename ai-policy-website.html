@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Policy Generator - Enterprise AI Governance Platform</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+        }
+        .gradient-text {
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            background-image: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+        }
+        .policy-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        img {
+            display: none !important;
+        }
+    </style>
+</head>
+<body class="antialiased bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex">
+                    <div class="flex-shrink-0 flex items-center">
+                        <span class="text-xl font-bold gradient-text">AIPolicy<span class="font-light">Generator</span></span>
+                    </div>
+                    <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
+                        <a href="#features" class="border-transparent text-gray-700 hover:text-indigo-600 hover:border-indigo-500 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                            Features
+                        </a>
+                        <a href="#policies" class="border-transparent text-gray-700 hover:text-indigo-600 hover:border-indigo-500 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                            Policy Templates
+                        </a>
+                        <a href="#framework" class="border-transparent text-gray-700 hover:text-indigo-600 hover:border-indigo-500 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                            AI-AMF Framework
+                        </a>
+                        <a href="#pricing" class="border-transparent text-gray-700 hover:text-indigo-600 hover:border-indigo-500 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                            Pricing
+                        </a>
+                    </div>
+                </div>
+                <div class="hidden sm:ml-6 sm:flex sm:items-center">
+                    <a href="#" class="px-4 py-2 text-sm font-medium text-gray-700 hover:text-indigo-600">
+                        Sign in
+                    </a>
+                    <a href="#" class="ml-3 px-4 py-2 text-sm font-medium rounded-md text-white gradient-bg hover:opacity-90">
+                        Get Started
+                    </a>
+                </div>
+                <div class="-mr-2 flex items-center sm:hidden">
+                    <button type="button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
+                        <span class="sr-only">Open main menu</span>
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="relative bg-white overflow-hidden">
+        <div class="max-w-7xl mx-auto">
+            <div class="relative z-10 pb-8 bg-white sm:pb-16 md:pb-20 lg:max-w-2xl lg:w-full lg:pb-28 xl:pb-32">
+                <main class="mt-10 mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28">
+                    <div class="sm:text-center lg:text-left">
+                        <h1 class="text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl">
+                            <span class="block">AI Policy Generator</span>
+                            <span class="block gradient-text mt-3">The "LegalZoom" for Enterprise AI Governance</span>
+                        </h1>
+                        <p class="mt-3 text-base text-gray-500 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
+                            Generate comprehensive, customizable AI policies aligned with the AI Adoption & Management Framework (AI-AMF). Build your AI governance foundation in minutes, not months.
+                        </p>
+                        <div class="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
+                            <div class="rounded-md shadow">
+                                <a href="#" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white gradient-bg hover:opacity-90 md:py-4 md:text-lg md:px-10">
+                                    Generate Your Policies
+                                </a>
+                            </div>
+                            <div class="mt-3 sm:mt-0 sm:ml-3">
+                                <a href="#" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-indigo-600 bg-indigo-100 hover:bg-indigo-200 md:py-4 md:text-lg md:px-10">
+                                    Book a Demo
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+            </div>
+        </div>
+        <div class="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2">
+            <img class="h-56 w-full object-cover sm:h-72 md:h-96 lg:w-full lg:h-full" src="/api/placeholder/900/600" alt="AI policy dashboard">
+        </div>
+    </div>
+
+    <!-- Features Section -->
+    <div id="features" class="py-12 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="lg:text-center">
+                <h2 class="text-base text-indigo-600 font-semibold tracking-wide uppercase">Features</h2>
+                <p class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+                    Everything you need for AI governance
+                </p>
+                <p class="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto">
+                    Our platform provides a comprehensive solution for creating, managing, and implementing AI policies across your organization.
+                </p>
+            </div>
+
+            <div class="mt-10">
+                <dl class="space-y-10 md:space-y-0 md:grid md:grid-cols-2 md:gap-x-8 md:gap-y-10">
+                    <div class="relative">
+                        <dt>
+                            <div class="absolute flex items-center justify-center h-12 w-12 rounded-md gradient-bg text-white">
+                                <i class="fas fa-file-alt"></i>
+                            </div>
+                            <p class="ml-16 text-lg leading-6 font-medium text-gray-900">Customizable Policy Templates</p>
+                        </dt>
+                        <dd class="mt-2 ml-16 text-base text-gray-500">
+                            18+ pre-built policy templates aligned with industry standards and the AI-AMF framework, easily customizable to your organization's needs.
+                        </dd>
+                    </div>
+
+                    <div class="relative">
+                        <dt>
+                            <div class="absolute flex items-center justify-center h-12 w-12 rounded-md gradient-bg text-white">
+                                <i class="fas fa-sitemap"></i>
+                            </div>
+                            <p class="ml-16 text-lg leading-6 font-medium text-gray-900">Process-Centric Orchestration</p>
+                        </dt>
+                        <dd class="mt-2 ml-16 text-base text-gray-500">
+                            Build a semantic layer for your organization with our ontology generator, representing your data and processes in a business-centric way.
+                        </dd>
+                    </div>
+
+                    <div class="relative">
+                        <dt>
+                            <div class="absolute flex items-center justify-center h-12 w-12 rounded-md gradient-bg text-white">
+                                <i class="fas fa-code"></i>
+                            </div>
+                            <p class="ml-16 text-lg leading-6 font-medium text-gray-900">Business as Code</p>
+                        </dt>
+                        <dd class="mt-2 ml-16 text-base text-gray-500">
+                            Transform business documents into structured knowledge bases with markdown formats, making your policies machine-readable and versionable.
+                        </dd>
+                    </div>
+
+                    <div class="relative">
+                        <dt>
+                            <div class="absolute flex items-center justify-center h-12 w-12 rounded-md gradient-bg text-white">
+                                <i class="fas fa-tasks"></i>
+                            </div>
+                            <p class="ml-16 text-lg leading-6 font-medium text-gray-900">Compliance Tracking</p>
+                        </dt>
+                        <dd class="mt-2 ml-16 text-base text-gray-500">
+                            Monitor policy implementation and compliance across your organization with dashboards and reporting tools.
+                        </dd>
+                    </div>
+
+                    <div class="relative">
+                        <dt>
+                            <div class="absolute flex items-center justify-center h-12 w-12 rounded-md gradient-bg text-white">
+                                <i class="fas fa-users-cog"></i>
+                            </div>
+                            <p class="ml-16 text-lg leading-6 font-medium text-gray-900">Collaborative Workflows</p>
+                        </dt>
+                        <dd class="mt-2 ml-16 text-base text-gray-500">
+                            Involve stakeholders across your organization in policy development with review and approval workflows.
+                        </dd>
+                    </div>
+
+                    <div class="relative">
+                        <dt>
+                            <div class="absolute flex items-center justify-center h-12 w-12 rounded-md gradient-bg text-white">
+                                <i class="fas fa-sync-alt"></i>
+                            </div>
+                            <p class="ml-16 text-lg leading-6 font-medium text-gray-900">Automatic Updates</p>
+                        </dt>
+                        <dd class="mt-2 ml-16 text-base text-gray-500">
+                            Keep your policies up-to-date with automatic updates based on regulatory changes and best practices.
+                        </dd>
+                    </div>
+                </dl>
+            </div>
+        </div>
+    </div>
+
+    <!-- Policy Templates Section -->
+    <div id="policies" class="py-12 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="lg:text-center">
+                <h2 class="text-base text-indigo-600 font-semibold tracking-wide uppercase">Policy Templates</h2>
+                <p class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+                    Comprehensive AI Policy Coverage
+                </p>
+                <p class="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto">
+                    Our platform includes 18+ policy templates designed to address all aspects of AI governance, from ethics to operations.
+                </p>
+            </div>
+
+            <div class="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+                <!-- Policy Card 1 -->
+                <div class="bg-white overflow-hidden shadow rounded-lg policy-card transition-all duration-300">
+                    <div class="px-4 py-5 sm:p-6">
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0 bg-indigo-500 rounded-md p-3">
+                                <i class="fas fa-balance-scale text-white"></i>
+                            </div>
+                            <div class="ml-5 w-0 flex-1">
+                                <h3 class="text-lg font-medium text-gray-900">AI Ethics Policy</h3>
+                                <p class="mt-1 text-sm text-gray-500">
+                                    Establish ethical principles and guidelines for responsible AI development and use.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="mt-4">
+                            <a href="#" class="text-sm font-medium text-indigo-600 hover:text-indigo-500">
+                                View template <span aria-hidden="true">&rarr;</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Policy Card 2 -->
+                <div class="bg-white overflow-hidden shadow rounded-lg policy-card transition-all duration-300">
+                    <div class="px-4 py-5 sm:p-6">
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0 bg-indigo-500 rounded-md p-3">
+                                <i class="fas fa-shield-alt text-white"></i>
+                            </div>
+                            <div class="ml-5 w-0 flex-1">
+                                <h3 class="text-lg font-medium text-gray-900">AI Risk Management Policy</h3>
+                                <p class="mt-1 text-sm text-gray-500">
+                                    Framework for identifying, assessing, and mitigating AI-related risks.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="mt-4">
+                            <a href="#" class="text-sm font-medium text-indigo-600 hover:text-indigo-500">
+                                View template <span aria-hidden="true">&rarr;</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Policy Card 3 -->
+                <div class="bg-white overflow-hidden shadow rounded-lg policy-card transition-all duration-300">
+                    <div class="px-4 py-5 sm:p-6">
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0 bg-indigo-500 rounded-md p-3">
+                                <i class="fas fa-database text-white"></i>
+                            </div>
+                            <div class="ml-5 w-0 flex-1">
+                                <h3 class="text-lg font-medium text-gray-900">AI Data Governance Policy</h3>
+                                <p class="mt-1 text-sm text-gray-500">
+                                    Establish standards for data collection, quality, and usage in AI systems.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="mt-4">
+                            <a href="#" class="text-sm font-medium text-indigo-600 hover:text-indigo-500">
+                                View template <span aria-hidden="true">&rarr;</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Policy Card 4 -->
+                <div class="bg-white overflow-hidden shadow rounded-lg policy-card transition-all duration-300">
+                    <div class="px-4 py-5 sm:p-6">
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0 bg-indigo-500 rounded-md p-3">
+                                <i class="fas fa-lock text-white"></i>
+                            </div>
+                            <div class="ml-5 w-0 flex-1">
+                                <h3 class="text-lg font-medium text-gray-900">AI Security Policy</h3>
+                                <p class="mt-1 text-sm text-gray-500">
+                                    Protect AI systems from security threats and vulnerabilities.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="mt-4">
+                            <a href="#" class="text-sm font-medium text-indigo-600 hover:text-indigo-500">
+                                View template <span aria-hidden="true">&rarr;</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Policy Card 5 -->
+                <div class="bg-white overflow-hidden shadow rounded-lg policy-card transition-all duration-300">
+                    <div class="px-4 py-5 sm:p-6">
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0 bg-indigo-500 rounded-md p-3">
+                                <i class="fas fa-cogs text-white"></i>
+                            </div>
+                            <div class="ml-5 w-0 flex-1">
+                                <h3 class="text-lg font-medium text-gray-900">AI Model Management Policy</h3>
+                                <p class="mt-1 text-sm text-gray-500">
+                                    Manage AI models throughout their lifecycle from development to retirement.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="mt-4">
+                            <a href="#" class="text-sm font-medium text-indigo-600 hover:text-indigo-500">
+                                View template <span aria-hidden="true">&rarr;</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Policy Card 6 -->
+                <div class="bg-white overflow-hidden shadow rounded-lg policy-card transition-all duration-300">
+                    <div class="px-4 py-5 sm:p-6">
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0 bg-indigo-500 rounded-md p-3">
+                                <i class="fas fa-users text-white"></i>
+                            </div>
+                            <div class="ml-5 w-0 flex-1">
+                                <h3 class="text-lg font-medium text-gray-900">Human-AI Collaboration Policy</h3>
+                                <p class="mt-1 text-sm text-gray-500">
+                                    Establish frameworks for effective human-AI interaction and oversight.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="mt-4">
+                            <a href="#" class="text-sm font-medium text-indigo-600 hover:text-indigo-500">
+                                View template <span aria-hidden="true">&rarr;</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sm:col-span-2 lg:col-span-3 text-center mt-6">
+                    <a href="#" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white gradient-bg hover:opacity-90">
+                        View All 18+ Policy Templates
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Framework Section -->
+    <div id="framework" class="py-12 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="lg:text-center">
+                <h2 class="text-base text-indigo-600 font-semibold tracking-wide uppercase">AI-AMF Framework</h2>
+                <p class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+                    Built on proven governance standards
+                </p>
+                <p class="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto">
+                    Our policy templates are aligned with the AI Adoption & Management Framework (AI-AMF), a comprehensive approach to AI governance.
+                </p>
+            </div>
+
+            <div class="mt-10">
+                <div class="lg:grid lg:grid-cols-2 lg:gap-8 lg:items-center">
+                    <div class="relative">
+                        <h3 class="text-2xl font-extrabold text-gray-900 tracking-tight sm:text-3xl">
+                            The Six Layers of AI Adoption
+                        </h3>
+                        <p class="mt-3 text-lg text-gray-500">
+                            The AI-AMF is structured around six critical layers that represent a holistic approach to AI adoption and governance.
+                        </p>
+
+                        <dl class="mt-10 space-y-10">
+                            <div class="relative">
+                                <dt>
+                                    <div class="absolute flex items-center justify-center h-12 w-12 rounded-md gradient-bg text-white">
+                                        <span class="text-lg font-semibold">1</span>
+                                    </div>
+                                    <p class="ml-16 text-lg leading-6 font-medium text-gray-900">Evaluate</p>
+                                </dt>
+                                <dd class="mt-2 ml-16 text-base text-gray-500">
+                                    Assess organizational readiness, identify opportunities, and align AI initiatives with strategic goals.
+                                </dd>
+                            </div>
+
+                            <div class="relative">
+                                <dt>
+                                    <div class="absolute flex items-center justify-center h-12 w-12 rounded-md gradient-bg text-white">
+                                        <span class="text-lg font-semibold">2</span>
+                                    </div>
+                                    <p class="ml-16 text-lg leading-6 font-medium text-gray-900">Govern</p>
+                                </dt>
+                                <dd class="mt-2 ml-16 text-base text-gray-500">
+                                    Establish governance structures, ethical guidelines, and compliance protocols.
+                                </dd>
+                            </div>
+
+                            <div class="relative">
+                                <dt>
+                                    <div class="absolute flex items-center justify-center h-12 w-12 rounded-md gradient-bg text-white">
+                                        <span class="text-lg font-semibold">3</span>
+                                    </div>
+                                    <p class="ml-16 text-lg leading-6 font-medium text-gray-900">Innovate</p>
+                                </dt>
+                                <dd class="mt-2 ml-16 text-base text-gray-500">
+                                    Identify high-impact AI opportunities and create sustainable frameworks for experimentation.
+                                </dd>
+                            </div>
+                        </dl>
+                    </div>
+
+                    <div class="mt-10 -mx-4 relative lg:mt-0">
+                        <img class="relative mx-auto rounded-lg shadow-lg" src="/api/placeholder/600/450" alt="AI-AMF Framework Diagram">
+                    </div>
+                </div>
+
+                <div class="mt-10 lg:grid lg:grid-cols-2 lg:gap-8 lg:items-center">
+                    <div class="mt-10 -mx-4 relative lg:mt-0 lg:order-1">
+                        <img class="relative mx-auto rounded-lg shadow-lg" src="/api/placeholder/600/450" alt="AI-AMF Implementation">
+                    </div>
+                    
+                    <div class="relative lg:order-2">
+                        <dl class="mt-10 space-y-10">
+                            <div class="relative">
+                                <dt>
+                                    <div class="absolute flex items-center justify-center h-12 w-12 rounded-md gradient-bg text-white">
+                                        <span class="text-lg font-semibold">4</span>
+                                    </div>
+                                    <p class="ml-16 text-lg leading-6 font-medium text-gray-900">Secure</p>
+                                </dt>
+                                <dd class="mt-2 ml-16 text-base text-gray-500">
+                                    Protect AI systems through comprehensive security measures, risk management, and incident response.
+                                </dd>
+                            </div>
+
+                            <div class="relative">
+                                <dt>
+                                    <div class="absolute flex items-center justify-center h-12 w-12 rounded-md gradient-bg text-white">
+                                        <span class="text-lg font-semibold">5</span>
+                                    </div>
+                                    <p class="ml-16 text-lg leading-6 font-medium text-gray-900">Operate</p>
+                                </dt>
+                                <dd class="mt-2 ml-16 text-base text-gray-500">
+                                    Implement AI solutions with reliable deployment, monitoring, and maintenance processes.
+                                </dd>
+                            </div>
+
+                            <div class="relative">
+                                <dt>
+                                    <div class="absolute flex items-center justify-center h-12 w-12 rounded-md gradient-bg text-white">
+                                        <span class="text-lg font-semibold">6</span>
+                                    </div>
+                                    <p class="ml-16 text-lg leading-6 font-medium text-gray-900">Integrate</p>
+                                </dt>
+                                <dd class="mt-2 ml-16 text-base text-gray-500">
+                                    Embed AI capabilities into organizational culture, processes, and workflows.
+                                </dd>
+                            </div>
+                        </dl>
+                    </div>
+                </div>
+                
+                <div class="mt-10 text-center">
+                    <a href="#" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white gradient-bg hover:opacity-90">
+                        Learn More About AI-AMF
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pricing Section -->
+    <div id="pricing" class="py-12 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="lg:text-center">
+                <h2 class="text-base text-indigo-600 font-semibold tracking-wide uppercase">Pricing</h2>
+                <p class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+                    Flexible plans for organizations of all sizes
+                </p>
+                <p class="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto">
+                    Choose the plan that fits your AI governance needs and scale as your initiatives grow.
+                </p>
+            </div>
+
+            <div class="mt-12 space-y-12 lg:space-y-0 lg:grid lg:grid-cols-4 lg:gap-x-6">
+                <!-- Free Tier -->
+                <div class="relative p-6 bg-white border border-gray-200 rounded-2xl shadow-sm flex flex-col hover:border-indigo-300 transition-all duration-300">
+                    <div class="flex-1">
+                        <h3 class="text-xl font-semibold text-gray-900">Free</h3>
+                        <p class="mt-4 flex items-baseline text-gray-900">
+                            <span class="text-4xl font-extrabold tracking-tight">$0</span>
+                            <span class="ml-1 text-xl font-semibold">/month</span>
+                        </p>
+                        <p class="mt-6 text-gray-500">Perfect for small startups exploring AI adoption.</p>
+
+                        <ul role="list" class="mt-6 space-y-3">
+                            <li class="flex">
+                                <i class="fas fa-check flex-shrink-0 h-5 w-5 text-green-500"></i>
+                                <span class="ml-3 text-gray-500">2 basic policy templates</span>
+                            </li>
+                            <li class="flex">
+                                <i class="fas fa-check flex-shrink-0 h-5 w-5 text-green-500"></i>
+                                <span class="ml-3 text-gray-500">Limited customization options</span>
+                            </li>
+                            <li class="flex">
+                                <i class="fas fa-check flex-shrink-0 h-5 w-5 text-green-500"></i>
+                                <span class="ml-3 text-gray-500">AI-AMF framework overview</span>
+                            </li>
+                            <li class="flex">
+                                <i class="fas fa-check flex-shrink-0 h-5 w-5 text-green-500"></i>
+                                <span class="ml-3 text-gray-500">Basic organization assessment</span>
+                            </li>
+                            <li class="flex">
+                                <i class="fas fa-check flex-shrink-0 h-5 w-5 text-green-500"></i>
+                                <span class="ml-3 text-gray-500">Export in markdown format</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <a href="#" class="mt-8 block w-full bg-indigo-50 border border-indigo-200 rounded-md py-2 text-sm font-semibold text-indigo-600 text-center hover:bg-indigo-100">
+                        Get Started Free
+                    </a>
+                </div>
+
+                <!-- Essentials Tier -->
+                <div class="relative p-6 bg-white border border-gray-200 rounded-2xl shadow-sm flex flex-col hover:border-indigo-300 transition-all duration-300">
+                    <div class="flex-1">
+                        <h3 class="text-xl font-semibold text-gray-900">Essentials</h3>
+                        <p class="mt-4 flex items-baseline text-gray-900">
+                            <span class="text-4xl font-extrabold tracking-tight">$199</span>
+                            <span class="ml-1 text-xl font-semibold">/month</span>
+                        </p>
+                        <p class="mt-2 text-sm text-gray-500">$1,990/year (save 17%)</p>
+                        <p class="mt-6 text-gray-500">For small to medium businesses beginning structured AI adoption.</p>
+
+                        <ul role="list" class="mt-6 space-y-3">
+                            <li class="flex">
+                                <i class="fas fa-check flex-shrink-0 h-5 w-5 text-green-500"></i>
+                                <span class="ml-3 text-gray-500">8 core policy templates</span>
+                            </li>
+                            <li class="flex">
+                                <i class="fas fa-check flex-shrink-0 h-5 w-5 text-green-500"></i>
+                                <span class="ml-3 text-gray-500">Standard customization options</span>
+                            </li>
+                            <li class="flex">
+                                <i class="fas fa-check flex-shrink-0 h-5 w-5 text-green-500"></i>
+                                <span class="ml-3 text-gray-500">Guided recommendations</span>
+                            </li>
+                            <li class="flex">
+                                <i class="fas fa-check flex-shrink-0 h-5 w-5 text-green-500"></i>
+                                <span class="ml-3 text-gray-500">Basic policy version control</span>
+                            </li>
+                            <li class="flex">
+                                <i class="fas fa-check flex-shrink-0 h-5 w-5 text-green-500"></i>
+                                <span class="ml-3 text-gray-500">Multiple export formats</span>
+                            </li>
+                            <li class="flex">
+                                <i class="fas fa-check flex-shrink-0 h-5 w-5 text-green-500"></i>
+                                <span class="ml-3 text-gray-500">Email support</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <a href="#" class="mt-8 block w-full gradient-bg border border-transparent rounded-md py-2 text-sm font-semibold text-white text-center hover:opacity-90">
+                        Start with Essentials
+                    </a>
+                </div>
+
+                <!-- Professional Tier -->
+                <div class="relative p-6 bg-white border border-indigo-400 rounded-2xl shadow-sm flex flex-col hover:border-indigo-500 transition-all duration-300">
+                    <div class="absolute top-0 inset-x-0 transform translate-y-px">
+                        <div class="flex justify-center transform -translate-y-1/2">
+                            <span class="inline-flex rounded-full bg-indigo-600 px-4 py-1 text-sm font-semibold tracking-wider uppercase text-white">
+                                Most Popular
+                            </span>
+                        </div>
+                    </div>
+                    <div class="flex-1">
+                        <h3 class="text-xl font-semibold text-gray-900">Professional</h3>
+                        <p class="mt-4 flex items-baseline text-gray-900">
+                            <span class="text-4xl font-extrabold tracking-tight">$499</span>
+                            <span class="ml-1 text-xl font-semibold">/month</span>
+                        </p>
+                        <p class="mt-2 text-sm text-gray-500">$4,990/year (save 17%)</p>
+                        <p class="mt-6 text-gray-500">For medium to large businesses with active AI initiatives.</p>
+
+                        <ul role="list" class="mt-6 space-y-3">
+                            <li class="flex">
+                                <i class="fas fa-check flex-shrink-0 h-5 w-5 text-green-500"></i>
+                                <span class="ml-3 text-gray-500">All 18+ policy templates</span>
+                            </li>
+                            <li class="flex">
+                                <i class="fas fa-check flex-shrink-0 h-5 w-5 text-green-500"></i>
+                                <span class="ml-3 text-gray-500">Advanced customization with branding</span>
+                            </li>
+                            <li class="flex">
+                                <i class="fas fa-check flex-shrink-0 h-5 w-5 text-green-500"></i>
+                                <span class="ml-3 text-gray-500">Comprehensive assessment</span>
+                            </li>
+                            <li class="flex">
+                                <i class="fas fa-check flex-shrink-0 h-5 w-5 text-green-500"></i>
+                                <span class="ml-3 text-gray-500">Full version control & change tracking</span>
+                            </li>
+                            <li class="flex">
+                                <i class="fas fa-check flex-shrink-0 h-5 w-5 text-green-500"></i>
+                                <span class="ml-3 text-gray-500">Collaborative workflows (5 users)</span>
+                            </li>
+                            <li class="flex">
+                                <i class="fas fa-check flex-shrink-0 h-5 w-5 text-green-500"></i>
+                                <span class="ml-3 text-gray-500">Advanced export with branding</span>
+                            </li>
+                            <li class="flex">
+                                <i class="fas fa-check flex-shrink-0 h-5 w-5 text-green-500"></i>
+                                <span class="ml-3 text-gray-500">Priority support</span>
+                            </li>
+                            <li class="flex">
+                                <i class="fas fa-check flex-shrink-0 h-5 w-5 text-green-500"></i>
+                                <span class="ml-3 text-gray-500">Quarterly regulatory updates</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <a href="#" class="mt-8 block w-full gradient-bg border border-transparent rounded-md py-2 text-sm font-semibold text-white text-center hover:opacity-90">
+                        Start with Professional
+                    </a>
+                </div>
+
+                <!-- Enterprise Tier -->
+                <div class="relative p-6 bg-white border border-gray-200 rounded-2xl shadow-sm flex flex-col hover:border-indigo-300 transition-all duration-300">
+                    <div class="flex-1">
+                        <h3 class="text-xl font-semibold text-gray-900">Enterprise</h3>
+                        <p class="mt-4 flex items-baseline text-gray-900">
+                            <span class="text-4xl font-extrabold tracking-tight">$1,499</span>
+                            <span class="ml-1 text-xl font-semibold">/month</span>
+                        </p>
+                        <p class="mt-2 text-sm text-gray-500">$14,990/year (save 17%)</p>
+                        <p class="mt-6 text-gray-500">For large enterprises with complex AI governance needs.</p>
+
+                        <ul role="list" class="mt-6 space-y-3">
+                            <li class="flex">
+                                <i class="fas fa-check flex-shrink-0 h-5 w-5 text-green-500"></i>
+                                <span class="ml-3 text-gray-500">All policies with enterprise additions</span>
+                            </li>
+                            <li class="flex">
+                                <i class="fas fa-check flex-shrink-0 h-5 w-5 text-green-500"></i>
+                                <span class="ml-3 text-gray-500">Unlimited customization</span>
+                            </li>
+                            <li class="flex">
+                                <i class="fas fa-check flex-shrink-0 h-5 w-5 text-green-500"></i>
+                                <span class="ml-3 text-gray-500">Enterprise-wide assessment tools</span>
+                            </li>
+                            <li class="flex">
+                                <i class="fas fa-check flex-shrink-0 h-5 w-5 text-green-500"></i>
+                                <span class="ml-3 text-gray-500">Advanced workflows with approval chains</span>
+                            </li>
+                            <li class="flex">
+                                <i class="fas fa-check flex-shrink-0 h-5 w-5 text-green-500"></i>
+                                <span class="ml-3 text-gray-500">Unlimited users with RBAC</span>
+                            </li>
+                            <li class="flex">
+                                <i class="fas fa-check flex-shrink-0 h-5 w-5 text-green-500"></i>
+                                <span class="ml-3 text-gray-500">GRC system integration</span>
+                            </li>
+                            <li class="flex">
+                                <i class="fas fa-check flex-shrink-0 h-5 w-5 text-green-500"></i>
+                                <span class="ml-3 text-gray-500">Custom ontology development</span>
+                            </li>
+                            <li class="flex">
+                                <i class="fas fa-check flex-shrink-0 h-5 w-5 text-green-500"></i>
+                                <span class="ml-3 text-gray-500">Dedicated account manager</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <a href="#" class="mt-8 block w-full bg-indigo-600 border border-transparent rounded-md py-2 text-sm font-semibold text-white text-center hover:bg-indigo-700">
+                        Contact Sales
+                    </a>
+                </div>
+            </div>
+
+            <!-- CAIO Advisory Package -->
+            <div class="mt-12 bg-gray-50 rounded-2xl shadow overflow-hidden lg:grid lg:grid-cols-2 lg:gap-y-4">
+                <div class="pt-10 pb-12 px-6 sm:pt-16 sm:px-10 lg:pr-0">
+                    <div class="lg:self-center">
+                        <h2 class="text-2xl font-bold text-gray-900 sm:text-3xl sm:tracking-tight">
+                            <span class="block">CAIO Advisory Package</span>
+                        </h2>
+                        <p class="mt-4 text-lg leading-6 text-gray-500">
+                            For organizations without dedicated AI leadership seeking strategic guidance.
+                        </p>
+                        <p class="mt-4 text-2xl font-bold tracking-tight text-gray-900">
+                            $9,990 one-time
+                        </p>
+                        <p class="mt-1 text-lg text-gray-500">
+                            Optional $2,990/quarter retainer
+                        </p>
+                        <ul role="list" class="mt-6 space-y-3">
+                            <li class="flex">
+                                <i class="fas fa-check flex-shrink-0 h-5 w-5 text-green-500"></i>
+                                <span class="ml-3 text-gray-500">Everything in Enterprise tier</span>
+                            </li>
+                            <li class="flex">
+                                <i class="fas fa-check flex-shrink-0 h-5 w-5 text-green-500"></i>
+                                <span class="ml-3 text-gray-500">Virtual CAIO advisory services</span>
+                            </li>
+                            <li class="flex">
+                                <i class="fas fa-check flex-shrink-0 h-5 w-5 text-green-500"></i>
+                                <span class="ml-3 text-gray-500">Custom AI governance blueprint</span>
+                            </li>
+                            <li class="flex">
+                                <i class="fas fa-check flex-shrink-0 h-5 w-5 text-green-500"></i>
+                                <span class="ml-3 text-gray-500">Executive stakeholder workshops</span>
+                            </li>
+                            <li class="flex">
+                                <i class="fas fa-check flex-shrink-0 h-5 w-5 text-green-500"></i>
+                                <span class="ml-3 text-gray-500">Quarterly maturity assessment</span>
+                            </li>
+                        </ul>
+                        <div class="mt-8">
+                            <div class="rounded-md shadow">
+                                <a href="#" class="flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white gradient-bg hover:opacity-90">
+                                    Schedule a Consultation
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="relative -mt-6 aspect-w-5 aspect-h-3 md:aspect-w-2 md:aspect-h-1 lg:aspect-none">
+                    <img class="transform translate-x-10 translate-y-10 lg:h-full lg:w-auto" src="/api/placeholder/600/400" alt="CAIO Advisory Service">
+                </div>
+            </div>
+
+            <!-- Additional Services -->
+            <div class="mt-12">
+                <h3 class="text-lg font-medium text-gray-900">Additional Services</h3>
+                <div class="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                    <!-- Implementation Consulting -->
+                    <div class="border border-gray-200 rounded-lg p-6 hover:border-indigo-300 transition-all duration-300">
+                        <h4 class="text-base font-medium text-gray-900">Policy Implementation Consulting</h4>
+                        <p class="mt-2 text-sm text-gray-500">Custom consulting to help organizations implement their AI governance policies.</p>
+                        <p class="mt-4 text-base font-medium text-gray-900">Starting at $5,000</p>
+                    </div>
+
+                    <!-- Custom Policy Development -->
+                    <div class="border border-gray-200 rounded-lg p-6 hover:border-indigo-300 transition-all duration-300">
+                        <h4 class="text-base font-medium text-gray-900">Custom Policy Development</h4>
+                        <p class="mt-2 text-sm text-gray-500">Fully customized policy development by AI governance experts.</p>
+                        <p class="mt-4 text-base font-medium text-gray-900">Starting at $3,000 per policy</p>
+                    </div>
+
+                    <!-- Training & Certification -->
+                    <div class="border border-gray-200 rounded-lg p-6 hover:border-indigo-300 transition-all duration-300">
+                        <h4 class="text-base font-medium text-gray-900">Training & Certification</h4>
+                        <p class="mt-2 text-sm text-gray-500">AI governance training program with certification for individuals and teams.</p>
+                        <p class="mt-4 text-base font-medium text-gray-900">$499 per person | $1,999 for teams (up to 10)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- How It Works Section -->
+    <div class="py-12 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="lg:text-center">
+                <h2 class="text-base text-indigo-600 font-semibold tracking-wide uppercase">How It Works</h2>
+                <p class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+                    Generate custom AI policies in 4 simple steps
+                </p>
+                <p class="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto">
+                    Our platform makes it easy to create, customize, and implement AI policies tailored to your organization.
+                </p>
+            </div>
+
+            <div class="mt-10">
+                <div class="relative">
+                    <div class="absolute inset-0 h-1/2 bg-gray-50"></div>
+                    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <div class="max-w-4xl mx-auto">
+                            <dl class="rounded-lg bg-white shadow-lg sm:grid sm:grid-cols-4">
+                                <div class="flex flex-col border-b border-gray-100 p-6 text-center sm:border-0 sm:border-r">
+                                    <dt class="order-2 mt-2 text-lg leading-6 font-medium text-gray-500">Step 1</dt>
+                                    <dd class="order-1 text-5xl font-extrabold text-indigo-600">
+                                        <i class="fas fa-clipboard-list"></i>
+                                    </dd>
+                                    <dd class="order-3 mt-3 text-sm text-gray-500">Complete organization assessment</dd>
+                                </div>
+                                <div class="flex flex-col border-t border-b border-gray-100 p-6 text-center sm:border-0 sm:border-l sm:border-r">
+                                    <dt class="order-2 mt-2 text-lg leading-6 font-medium text-gray-500">Step 2</dt>
+                                    <dd class="order-1 text-5xl font-extrabold text-indigo-600">
+                                        <i class="fas fa-file-alt"></i>
+                                    </dd>
+                                    <dd class="order-3 mt-3 text-sm text-gray-500">Select policy templates</dd>
+                                </div>
+                                <div class="flex flex-col border-t border-gray-100 p-6 text-center sm:border-0 sm:border-l sm:border-r">
+                                    <dt class="order-2 mt-2 text-lg leading-6 font-medium text-gray-500">Step 3</dt>
+                                    <dd class="order-1 text-5xl font-extrabold text-indigo-600">
+                                        <i class="fas fa-edit"></i>
+                                    </dd>
+                                    <dd class="order-3 mt-3 text-sm text-gray-500">Customize to your needs</dd>
+                                </div>
+                                <div class="flex flex-col border-t border-gray-100 p-6 text-center sm:border-0 sm:border-l">
+                                    <dt class="order-2 mt-2 text-lg leading-6 font-medium text-gray-500">Step 4</dt>
+                                    <dd class="order-1 text-5xl font-extrabold text-indigo-600">
+                                        <i class="fas fa-rocket"></i>
+                                    </dd>
+                                    <dd class="order-3 mt-3 text-sm text-gray-500">Implement and track compliance</dd>
+                                </div>
+                
