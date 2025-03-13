@@ -11,6 +11,14 @@
     transform: translateY(-5px);
     box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
 }
+.highlight-policy {
+    animation: highlight-pulse 2s ease-in-out;
+}
+@keyframes highlight-pulse {
+    0% { box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.7); }
+    50% { box-shadow: 0 0 0 10px rgba(99, 102, 241, 0.3); }
+    100% { box-shadow: 0 0 0 0 rgba(99, 102, 241, 0); }
+}
 img {
     display: none !important;
 }

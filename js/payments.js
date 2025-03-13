@@ -1,5 +1,6 @@
-// Initialize Stripe - this key should match STRIPE_PUBLISHABLE_KEY in your .env file
+// Initialize Stripe - with a working test key
 const stripe = typeof Stripe !== 'undefined' ? Stripe('pk_test_TYooMQauvdEDq54NiTphI7jx') : null;
+// For development without backend, we can use simulated payments
 const elements = stripe ? stripe.elements() : null;
 
 // Create the payment modal elements when needed
@@ -135,13 +136,8 @@ async function processPayment(productId) {
             const paymentData = await response.json();
             clientSecret = paymentData.clientSecret;
             
-            // Step 2: Confirm the card payment with the client secret
-            result = await stripe.confirmCardPayment(clientSecret, {
-                payment_method: { 
-                    card: card, 
-                    billing_details: { email: email } 
-                }
-            });
+            // Step 2: Process payment based on the payment element
+            result = await processStripePayment(clientSecret, email);
         } else {
             // Simulation mode for testing without backend
             console.log('Processing payment for:', productId, 'with email:', email);
@@ -182,76 +178,136 @@ async function processPayment(productId) {
 }
 
 // Initialize Stripe payment for the policy generator
-async function initializePayment(productId, email) {
+async function initializePayment(productId, email, includeLaunchpad = false) {
     if (!PRODUCTS[productId]) {
         console.error(`Product ID ${productId} not found`);
         return;
     }
     
-    // Create card element
-    if (!card && stripe) {
-        const style = {
-            base: {
-                color: '#32325d',
-                fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
-                fontSmoothing: 'antialiased',
-                fontSize: '16px',
-                '::placeholder': {
-                    color: '#aab7c4'
+    // Calculate total amount
+    let totalAmount = PRODUCTS[productId].price;
+    if (includeLaunchpad) {
+        totalAmount += 3500; // Add Launchpad price
+    }
+    
+    // Create payment element
+    if (stripe) {
+        // Clear any existing payment elements
+        const paymentElement = document.getElementById('payment-element');
+        if (paymentElement) {
+            paymentElement.innerHTML = '';
+        }
+        
+        // Create a new elements instance
+        const newElements = stripe.elements({
+            mode: 'payment',
+            amount: totalAmount * 100, // Convert to cents
+            currency: 'usd',
+            appearance: {
+                theme: 'stripe',
+                variables: {
+                    colorPrimary: '#6366f1',
+                    colorBackground: '#ffffff',
+                    colorText: '#32325d',
+                    colorDanger: '#df1b41',
+                    fontFamily: 'system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
+                    spacingUnit: '4px',
+                    borderRadius: '4px'
+                },
+                rules: {
+                    '.Input': {
+                        border: '1px solid #e5e7eb',
+                        boxShadow: '0 1px 2px 0 rgba(0, 0, 0, 0.05)'
+                    },
+                    '.Input:focus': {
+                        border: '1px solid #6366f1',
+                        boxShadow: '0 0 0 1px #6366f1'
+                    }
                 }
+            }
+        });
+        
+        // Create and mount the Payment Element
+        const paymentElementOptions = {
+            layout: {
+                type: 'tabs',
+                defaultCollapsed: false
             },
-            invalid: {
-                color: '#fa755a',
-                iconColor: '#fa755a'
+            fields: {
+                billingDetails: 'never' // We collect this separately
             }
         };
         
-        card = elements.create('card', {style: style});
+        card = newElements.create('payment', paymentElementOptions);
         card.mount('#payment-element');
         
-        // Handle validation errors
-        card.addEventListener('change', function(event) {
+        // Handle validation and form state
+        card.on('change', (event) => {
             const displayError = document.getElementById('card-errors');
+            const submitButton = document.getElementById('payment-submit-button');
+            
             if (event.error) {
                 displayError.textContent = event.error.message;
             } else {
                 displayError.textContent = '';
             }
             
-            // Enable the submit button if the card is valid
-            const submitButton = document.getElementById('payment-submit-button');
-            submitButton.disabled = event.empty || event.error;
-            
-            if (!event.empty && !event.error) {
-                submitButton.innerHTML = `Pay $${PRODUCTS[productId].price}`;
+            // Enable the submit button if the form is complete
+            if (event.complete) {
+                submitButton.disabled = false;
+                submitButton.innerHTML = `Complete Purchase ($${totalAmount.toLocaleString()})`;
             } else {
+                submitButton.disabled = true;
                 submitButton.innerHTML = 'Please complete payment details';
             }
         });
     }
     
     // Handle form submission
+    const paymentForm = document.getElementById('payment-form');
     const submitButton = document.getElementById('payment-submit-button');
     
-    // Remove previous event listeners
-    const newSubmitButton = submitButton.cloneNode(true);
-    submitButton.parentNode.replaceChild(newSubmitButton, submitButton);
-    
-    // Add new event listener
-    newSubmitButton.addEventListener('click', function() {
-        completePaymentAndGeneratePolicies(productId, email);
+    // Prevent default form submission and use our custom handler
+    paymentForm.addEventListener('submit', function(event) {
+        event.preventDefault();
+        
+        // Check if we have Launchpad data
+        const policyData = JSON.parse(sessionStorage.getItem('pendingPolicyData'));
+        const includeLaunchpad = policyData && policyData.includeLaunchpad;
+        
+        // Get form data
+        const formData = {
+            name: document.getElementById('customer-name').value,
+            email: document.getElementById('customer-email').value,
+            phone: document.getElementById('customer-phone').value,
+            company: document.getElementById('customer-company').value,
+            role: document.getElementById('customer-role').value,
+            address: {
+                street: document.getElementById('customer-address').value,
+                city: document.getElementById('customer-city').value,
+                state: document.getElementById('customer-state').value,
+                zip: document.getElementById('customer-zip').value,
+                country: document.getElementById('customer-country').value
+            }
+        };
+        
+        // Store the customer information for future use
+        sessionStorage.setItem('customerInfo', JSON.stringify(formData));
+        
+        // Process payment with full customer data
+        completePaymentAndGeneratePolicies(productId, formData.email, includeLaunchpad, formData);
     });
 }
 
 // Process payment and generate policies
-async function completePaymentAndGeneratePolicies(productId, email) {
+async function completePaymentAndGeneratePolicies(productId, email, includeLaunchpad = false, customerInfo = null) {
     if (!email) {
         email = 'customer@example.com'; // Default if not provided
     }
     
     const submitButton = document.getElementById('payment-submit-button');
     submitButton.disabled = true;
-    submitButton.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Processing...';
+    submitButton.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Processing...';
     
     try {
         // Step 1: Make an API call to the server to create a PaymentIntent
@@ -261,6 +317,12 @@ async function completePaymentAndGeneratePolicies(productId, email) {
         let clientSecret;
         let result;
         
+        // Calculate total amount
+        let totalAmount = PRODUCTS[productId].price;
+        if (includeLaunchpad) {
+            totalAmount += 3500; // Add Launchpad price
+        }
+        
         if (USE_REAL_PAYMENT_API) {
             // Make actual API call to backend
             const response = await fetch('/api/create-payment-intent', {
@@ -268,7 +330,9 @@ async function completePaymentAndGeneratePolicies(productId, email) {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ 
                     productId: productId,
-                    email: email 
+                    email: email,
+                    includeLaunchpad: includeLaunchpad,
+                    customerInfo: customerInfo 
                 })
             });
             
@@ -280,13 +344,8 @@ async function completePaymentAndGeneratePolicies(productId, email) {
             const paymentData = await response.json();
             clientSecret = paymentData.clientSecret;
             
-            // Step 2: Confirm the card payment with the client secret
-            result = await stripe.confirmCardPayment(clientSecret, {
-                payment_method: { 
-                    card: card, 
-                    billing_details: { email: email } 
-                }
-            });
+            // Step 2: Process payment based on the payment element
+            result = await processStripePayment(clientSecret, email, customerInfo);
         } else {
             // Simulation mode for testing without backend
             console.log('Processing payment for:', productId, 'with email:', email);
@@ -309,6 +368,30 @@ async function completePaymentAndGeneratePolicies(productId, email) {
             // Get the pending policy data and generate
             const policyData = JSON.parse(sessionStorage.getItem('pendingPolicyData'));
             
+            // Add customer info to the policy data if available
+            if (customerInfo) {
+                policyData.customerInfo = customerInfo;
+                sessionStorage.setItem('pendingPolicyData', JSON.stringify(policyData));
+            }
+            
+            // Show success message temporarily
+            const successMessage = document.createElement('div');
+            successMessage.className = 'fixed top-0 inset-x-0 p-4 bg-green-100 border-b border-green-400 text-green-800 text-center';
+            successMessage.innerHTML = `
+                <div class="flex justify-center items-center">
+                    <i class="fas fa-check-circle text-green-500 mr-2 text-xl"></i>
+                    <span class="font-medium">Payment successful! Generating your customized policies...</span>
+                </div>
+            `;
+            document.body.prepend(successMessage);
+            
+            // Remove message after a delay
+            setTimeout(() => {
+                if (successMessage.parentNode) {
+                    successMessage.remove();
+                }
+            }, 3000);
+            
             // Generate policies
             generatePoliciesForUser(policyData);
         } else {
@@ -320,9 +403,54 @@ async function completePaymentAndGeneratePolicies(productId, email) {
         const errorElement = document.getElementById('card-errors');
         errorElement.textContent = error.message || 'An error occurred while processing your payment.';
         
+        // Calculate correct total amount for error message
+        let totalAmount = PRODUCTS[productId].price;
+        if (includeLaunchpad) {
+            totalAmount += 3500;
+        }
+        
         // Re-enable the submit button
         submitButton.disabled = false;
-        submitButton.innerHTML = `Pay $${PRODUCTS[productId].price}`;
+        submitButton.innerHTML = `Pay $${totalAmount.toLocaleString()}`;
+    }
+}
+
+/**
+ * Process a payment using the Stripe payment elements API
+ * @param {string} clientSecret - The client secret from the PaymentIntent
+ * @param {string} email - The customer's email address
+ * @param {object} customerInfo - Additional customer information
+ * @returns {Promise<object>} - The result of the payment processing
+ */
+async function processStripePayment(clientSecret, email, customerInfo = null) {
+    try {
+        // Using Stripe's new payment element
+        // Get the elements instance - if we have a new one use it, otherwise use the global one
+        const elementsInstance = typeof newElements !== 'undefined' ? newElements : elements;
+        return await stripe.confirmPayment({
+            elements: elementsInstance,
+            clientSecret: clientSecret,
+            confirmParams: {
+                return_url: window.location.href,
+                payment_method_data: {
+                    billing_details: {
+                        name: customerInfo ? customerInfo.name : email,
+                        email: email,
+                        phone: customerInfo ? customerInfo.phone : '',
+                        address: customerInfo ? {
+                            line1: customerInfo.address.street,
+                            city: customerInfo.address.city,
+                            state: customerInfo.address.state,
+                            postal_code: customerInfo.address.zip,
+                            country: customerInfo.address.country
+                        } : {}
+                    }
+                }
+            }
+        });
+    } catch (error) {
+        console.error('Error processing payment:', error);
+        throw error;
     }
 }
 
@@ -334,6 +462,51 @@ if (typeof module !== 'undefined' && module.exports) {
         closePaymentModal,
         processPayment,
         initializePayment,
-        completePaymentAndGeneratePolicies
+        completePaymentAndGeneratePolicies,
+        processStripePayment
     };
 }
+
+// Add some form validation for better user experience
+document.addEventListener('DOMContentLoaded', function() {
+    // If we're on a page with the payment form, add validation 
+    setTimeout(() => {
+        const paymentForm = document.getElementById('payment-form');
+        if (paymentForm) {
+            const inputs = paymentForm.querySelectorAll('input[required]');
+            
+            // Add validation styling
+            inputs.forEach(input => {
+                input.addEventListener('blur', function() {
+                    if (!this.value.trim()) {
+                        this.classList.add('border-red-500');
+                        // Add validation message if not already present
+                        if (!this.nextElementSibling || !this.nextElementSibling.classList.contains('validation-message')) {
+                            const message = document.createElement('p');
+                            message.classList.add('validation-message', 'text-red-500', 'text-xs', 'mt-1');
+                            message.textContent = 'This field is required';
+                            this.parentNode.insertBefore(message, this.nextSibling);
+                        }
+                    } else {
+                        this.classList.remove('border-red-500');
+                        // Remove validation message if present
+                        if (this.nextElementSibling && this.nextElementSibling.classList.contains('validation-message')) {
+                            this.nextElementSibling.remove();
+                        }
+                    }
+                });
+                
+                // Remove error styling when typing
+                input.addEventListener('input', function() {
+                    if (this.value.trim()) {
+                        this.classList.remove('border-red-500');
+                        // Remove validation message if present
+                        if (this.nextElementSibling && this.nextElementSibling.classList.contains('validation-message')) {
+                            this.nextElementSibling.remove();
+                        }
+                    }
+                });
+            });
+        }
+    }, 1000); // Delay to ensure the form is rendered
+});
