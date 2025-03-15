@@ -8,6 +8,8 @@ import Templates from './pages/Templates';
 import Generator from './pages/Generator';
 import Testimonials from './pages/Testimonials';
 import Launchpad from './pages/Launchpad';
+import Install from './pages/Install';
+import Pricing from './pages/Pricing';
 
 function App() {
   return (
@@ -22,6 +24,8 @@ function App() {
             <Route path="/generator" element={<Generator />} />
             <Route path="/testimonials" element={<Testimonials />} />
             <Route path="/launchpad" element={<Launchpad />} />
+            <Route path="/install" element={<Install />} />
+            <Route path="/pricing" element={<Pricing />} />
           </Routes>
         </main>
         <Footer />
