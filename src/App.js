@@ -4,6 +4,9 @@ import Navigation from './components/Navigation';
 import Footer from './components/Footer';
 import Home from './pages/Home';
 import Framework from './pages/Framework';
+import Templates from './pages/Templates';
+import Generator from './pages/Generator';
+import Testimonials from './pages/Testimonials';
 import Launchpad from './pages/Launchpad';
 
 function App() {
@@ -15,6 +18,9 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/framework" element={<Framework />} />
+            <Route path="/templates" element={<Templates />} />
+            <Route path="/generator" element={<Generator />} />
+            <Route path="/testimonials" element={<Testimonials />} />
             <Route path="/launchpad" element={<Launchpad />} />
           </Routes>
         </main>
